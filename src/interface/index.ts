@@ -47,16 +47,18 @@ interface Subject{
 
 //getStudentByEnrollment response
 export interface StudentByEnrollmentResponse {
-  status: string;
+  statusCode: number;
   message: string;
   data: Student;
+  success: boolean;
 }
 
 // getProgrammeResult response
 export interface Programme{
-    status: string;
+    statusCode: number;
     message: string;
-    data: [Student]
+    data: [Student];
+    success: boolean;
 }
 
 
@@ -73,12 +75,15 @@ export interface StudentList{
 
 // getStudentByName response
 export interface StudentByNameResponse {
-  status: string;
+  statusCode: number;
   message: string;
   data: StudentList[] | [];
+  success: boolean;
 }
 
 export interface ErrorResponse {
-  status: string;
+  statusCode: number;
   message: string;
+  success: boolean;
+  data?: any;
 }
