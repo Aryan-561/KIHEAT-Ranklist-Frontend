@@ -25,9 +25,10 @@ class Service {
     } catch (error: unknown) {
       const axiosError = error as AxiosError<{ message?: string }>;
       return {
-        status: "error",
+        statusCode: axiosError.response?.status || 500,
         message:
           axiosError.response?.data?.message || "Something went wrong",
+          success: false,
       };
     }
   }
@@ -45,9 +46,10 @@ class Service {
     } catch (error: unknown) {
       const axiosError = error as AxiosError<{ message?: string }>;
       return {
-        status: "error",
+        statusCode: axiosError.response?.status || 500,
         message:
           axiosError.response?.data?.message || "Something went wrong",
+          success: false,
       };
     }
   }
@@ -63,9 +65,10 @@ class Service {
 
       const axiosError = error as AxiosError<{ message?: string }>;
       return {
-        status: "error",
+        statusCode: axiosError.response?.status || 500,
         message:
           axiosError.response?.data?.message || "Something went wrong",
+          success: false,
       };
 
     }
