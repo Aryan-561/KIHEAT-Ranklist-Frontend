@@ -85,5 +85,15 @@ export interface ErrorResponse {
   statusCode: number;
   message: string;
   success: boolean;
-  data?: any;
+  data?: unknown;
 }
+
+export interface Course{
+  [key: string]: string
+} 
+export interface SemestersCount{
+  [key: string]: string
+} 
+export interface Year{
+  [key: string]: string
+} 
