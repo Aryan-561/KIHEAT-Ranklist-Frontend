@@ -2,8 +2,8 @@ import type { SemestersCount, Course, Year } from "./../interface/index";
 
 export const courses: Course[] = [
     { BCA: "Bachelor of Computer Applications" },
-    { BBA: "Bachelor of Business Administration" },
     { BCom: "Bachelor of Commerce" },
+    { BBA: "Bachelor of Business Administration" },
 ];
 
 export const semesters: SemestersCount[] = [

@@ -97,3 +97,11 @@ export interface SemestersCount{
 export interface Year{
   [key: string]: string
 } 
+
+
+export interface ProgrammeBatchesResponse {
+  statusCode: number;
+  message: string;
+  data: string[]; 
+  success: boolean;
+}

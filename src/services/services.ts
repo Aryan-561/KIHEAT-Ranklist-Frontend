@@ -2,7 +2,8 @@ import type {
   StudentByNameResponse,
   StudentByEnrollmentResponse,
   ErrorResponse,
-  Programme
+  Programme,
+  ProgrammeBatchesResponse
 } from "./../interface/index";
 import { axiosInstance } from "../utils/axios";
 import { AxiosError } from "axios";
@@ -54,6 +55,21 @@ class Service {
     }
   }
 
+  async getProgrammeBatches(programme: string): Promise<ProgrammeBatchesResponse> {
+    try {
+      const res = await axiosInstance.get<ProgrammeBatchesResponse>(`/programme/${programme}`);
+      if (!res.data.success) {
+        throw new Error(res.data.message || "Failed to fetch programme batches");
+      }
+      return res.data;
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message?: string }>;
+      throw new Error(
+        axiosError.response?.data?.message || "Something went wrong while fetching programme batches"
+      );
+    }
+  }
+
   async getProgrammeResult(programme: string, batch: string): Promise<Programme | ErrorResponse> {
     try {
       const res = await axiosInstance.get<Programme>(`/programme/${programme}/${batch}`)
@@ -73,6 +89,8 @@ class Service {
 
     }
   }
+
+
 }
 
 export const services = new Service();
