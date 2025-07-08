@@ -7,7 +7,7 @@ import Logo from '../Logo/Logo';
 
 const Navbar: React.FC = () => {
     return (
-        <div className="bg-green-900 p-2 px-3 sm:p-3 rounded-xl flex justify-between items-center sm:px-12  shadow-lg    ">
+        <div className="bg-green-900 p-2 mb-2 px-3 sm:p-3 rounded-xl flex justify-between items-center sm:px-12  shadow-lg    ">
             
                 <Logo/>
             
