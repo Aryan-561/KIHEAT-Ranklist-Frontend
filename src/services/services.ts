@@ -3,7 +3,8 @@ import type {
   StudentByEnrollmentResponse,
   ErrorResponse,
   Programme,
-  ProgrammeBatchesResponse
+  ProgrammeBatchesResponse,
+  TopStudentsResponse
 } from "./../interface/index";
 import { axiosInstance } from "../utils/axios";
 import { AxiosError } from "axios";
@@ -55,6 +56,18 @@ class Service {
     }
   }
 
+  async getTopStudents():Promise<TopStudentsResponse>{
+    try{
+      const res = await axiosInstance.get<TopStudentsResponse>('/student/top-students');
+      return res.data;
+    }
+    catch (error: unknown) {
+          const axiosError = error as AxiosError<{ message?: string }>;
+          throw new Error(
+            axiosError.response?.data?.message || "Something went wrong"
+          );
+    }
+  }
   async getProgrammeBatches(programme: string): Promise<ProgrammeBatchesResponse> {
     try {
       const res = await axiosInstance.get<ProgrammeBatchesResponse>(`/programme/${programme}`);
