@@ -1,3 +1,5 @@
+import { faFileInvoiceDollar, faComputer , faBriefcase, type IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -6,10 +8,16 @@ type CardProps = {
   title?: string;
 };
 
+const icons: Record<string, IconDefinition> = {
+  BCA: faComputer,
+  BBA: faBriefcase,
+  BCom: faFileInvoiceDollar
+}
+
 const Card: React.FC<CardProps> = ({ fields, title }) => {
   return (
-    <div className="bg-green-50 min-h-80 flex-col  flex justify-center items-center border-green-300 p-6 shadow-lg rounded-2xl w-full">
-      <h2 className="text-2xl font-bold mb-4 text-center font-serif text-green-800">{title}</h2>
+    <div className="bg-emerald-100 flex flex-col justify-center items-center border-2 border-green-600 p-4 py-6 shadow-lg rounded-2xl w-full font-roboto-flex">
+      <h2 className="font-gabarito-600 text-base sm:text-2xl mb-3 sm:mb-4 text-center text-green-800 font-bold">{title}</h2>
       <ul className="flex flex-wrap gap-3 w-full">
         {fields.map((item, index) => {
           const key = Object.keys(item)[0];
@@ -18,9 +26,10 @@ const Card: React.FC<CardProps> = ({ fields, title }) => {
           return (
             <Link to={`/${key.toLowerCase()}`}
               key={index}
-              className="flex-1 min-w-[120px] px-3 py-14 border text-center font-semibold border-green-300 rounded-lg bg-stone-100 text-green-800 hover:bg-green-700 hover:text-white cursor-pointer transition-colors"
+              className="flex-1 flex flex-col gap-2 min-w-[120px] px-3 py-14 text-center text-xs sm:text-base font-semibold border-2 border-green-300 rounded-xl bg-green-100 text-green-700 hover:bg-green-200 hover:border-green-700 hover:scale-102 hover:text-emerald-800 cursor-pointer transition-colors"
             >
-              {item[key]}
+              <FontAwesomeIcon icon={icons[key]} size="xl" />
+              <div>{item[key]}</div>
             </Link>
           );
         })}
