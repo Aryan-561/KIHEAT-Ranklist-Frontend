@@ -105,3 +105,24 @@ export interface ProgrammeBatchesResponse {
   data: string[]; 
   success: boolean;
 }
+
+
+export interface TopStudents {
+  programme: string;
+  topStudent: {
+    enrollment: string;
+    name: string;
+    instCode: number;
+    batch: string;
+    prgCode: string;
+    programme: string;
+    cgpa: number;
+  }
+}
+
+export interface TopStudentsResponse {
+  statusCode: number;
+  message: string;
+  data: TopStudents[];
+  success: boolean;
+}
