@@ -2,7 +2,7 @@ import type { SemestersCount, Course, Year } from "./../interface/index";
 
 export const courses: Course[] = [
     { BCA: "Bachelor of Computer Applications" },
-    { BCom: "Bachelor of Commerce" },
+    { BCom: "Bachelor of Commerce (Honours)" },
     { BBA: "Bachelor of Business Administration" },
 ];
 
@@ -22,4 +22,10 @@ export const years: Year[] = [
     { year: "2021" },
 ]
 
+
+export const programmeCodes : Course = {
+    "020": "BCA",
+    "888": "B.Com (H)",
+    "017": "BBA",
+}
 
