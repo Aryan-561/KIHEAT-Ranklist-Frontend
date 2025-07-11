@@ -77,7 +77,7 @@ export interface StudentList{
 export interface StudentByNameResponse {
   statusCode: number;
   message: string;
-  data: StudentList[] | [];
+  data: StudentList[] | []
   success: boolean;
 }
 
