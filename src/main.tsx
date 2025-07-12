@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import Batch from "./component/Landingpage/Batch.tsx";
 import ClassResultList from "./component/Resultlist/ClassResultList.tsx";
+import Search from "./component/Search/Search.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -16,6 +17,11 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
+
       },
       {
         path:"/:course",
