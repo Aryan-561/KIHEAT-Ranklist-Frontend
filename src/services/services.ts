@@ -38,23 +38,20 @@ class Service {
   // Get a single student by enrollment number
   async getStudentByEnrollment(
     enrollment: string
-  ): Promise<StudentByEnrollmentResponse | ErrorResponse> {
+  ): Promise<StudentByEnrollmentResponse> {
     try {
       const response = await axiosInstance.get<StudentByEnrollmentResponse>(
-        `/student/${enrollment}`,
-
+        `/student/${enrollment}`
       );
       return response.data;
     } catch (error: unknown) {
       const axiosError = error as AxiosError<{ message?: string }>;
-      return {
-        statusCode: axiosError.response?.status || 500,
-        message:
-          axiosError.response?.data?.message || "Something went wrong",
-          success: false,
-      };
+      throw new Error(
+        axiosError.response?.data?.message || "Something went wrong"
+      );
     }
   }
+
 
   async getTopStudents():Promise<TopStudentsResponse>{
     try{

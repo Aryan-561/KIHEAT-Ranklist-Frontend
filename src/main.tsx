@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home.tsx";
 import Batch from "./component/Landingpage/Batch.tsx";
 import ClassResultList from "./component/Resultlist/ClassResultList.tsx";
 import Search from "./component/Search/Search.tsx";
+import DashBoard from "./component/DashBoard/DashBoard.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -21,7 +22,6 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
-
       },
       {
         path:"/:course",
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path:"/:course/:year",
         element: <ClassResultList/>,
+      },
+      {
+        path:"/search/:enroll",
+        element: <DashBoard/>,
       }
     ]
   }
