@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <Batch />,
       },
       {
-        path:"/:course/:year",
+        path:"/:course/:batch",
         element: <ClassResultList/>,
       },
       {

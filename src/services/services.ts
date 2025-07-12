@@ -80,7 +80,7 @@ class Service {
     }
   }
 
-  async getProgrammeResult(programme: string, batch: string): Promise<Programme | ErrorResponse> {
+  async getProgrammeResult(programme: string, batch: string): Promise<Programme> {
     try {
       const res = await axiosInstance.get<Programme>(`/programme/${programme}/${batch}`)
       console.log(res);
@@ -88,15 +88,10 @@ class Service {
       return res.data
 
     } catch (error: unknown) {
-
-      const axiosError = error as AxiosError<{ message?: string }>;
-      return {
-        statusCode: axiosError.response?.status || 500,
-        message:
-          axiosError.response?.data?.message || "Something went wrong",
-          success: false,
-      };
-
+          const axiosError = error as AxiosError<{ message?: string }>;
+          throw new Error(
+            axiosError.response?.data?.message || "Something went wrong"
+          );
     }
   }
 

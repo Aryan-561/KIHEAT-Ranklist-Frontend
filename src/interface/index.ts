@@ -14,12 +14,12 @@ export interface Student {
   totalCredits: number;
   maxCredits: number;
   semestersCount: number;
-  gpa: number;
+  cgpa: number;
   semesters: Semester[];
 }
 
-interface Semester {
-  semester: string;
+export interface Semester {
+  sem: string;
   subjectsCount: number;
   totalMarks: number;
   maxMarks: number;
@@ -27,11 +27,11 @@ interface Semester {
   maxCreditMarks: number;
   totalCredits: number;
   maxCredits: number;
-  gpa: number;
+  sgpa: number;
   subjects: Subject[];
 }
 
-interface Subject{
+export interface Subject{
     paperId: string;
     paperName: string;
     paperCode: string;
