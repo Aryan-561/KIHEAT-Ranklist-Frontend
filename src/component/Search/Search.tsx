@@ -26,7 +26,8 @@ function Search() {
     const [program, setProgram] = useState("BCA");
     const [visibleCount, setVisibleCount] = useState(3);
 
-    const isEnrollment = /^\d{3}$/.test(searchTerm.trim());
+    const isEnrollment = /^\d+$/.test(searchTerm.trim());
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,7 +43,6 @@ function Search() {
 
     const {
         data: enrollmentData,
-        error: enrollmentError,
         refetch: refetchEnrollment,
         isFetching: isFetchingEnrollment,
     } = useQuery<StudentByEnrollmentResponse | ErrorResponse>({
@@ -53,7 +53,6 @@ function Search() {
 
     const {
         data: nameData,
-        error: nameError,
         refetch: refetchName,
         isFetching: isFetchingName,
     } = useQuery<StudentByNameResponse | ErrorResponse>({
@@ -154,6 +153,10 @@ function Search() {
                 <div className="w-full max-w-3xl  border border-green-300 shadow-2xl rounded-2xl p-6 mt-4">
                     <h2 className="text-2xl font-semibold font-serif text-green-700 mb-4 text-center">Search Results</h2>
 
+
+                    {isSuccessResponse<StudentByEnrollmentResponse>(enrollmentData) && enrollmentData.data && (
+                        <StudentCard student={enrollmentData.data} />
+                    )}
                     {isSuccessResponse<StudentByNameResponse>(nameData) && nameData.data.length > 0 && (
                         <>
                             {nameData.data.slice(0, visibleCount).map((student, idx) => (
