@@ -6,7 +6,7 @@ interface StateMessageProps {
 }
 
   const StateMessage:React.FC<StateMessageProps> = ({ text, className }) => (
-        <div className="font-rubik flex flex-col items-center justify-center min-h-[60vh] w-full gap-4">
+        <div className="font-rubik flex flex-col items-center justify-center min-h-screen w-full gap-4">
             <div className="loader" />
             <div className={`text-3xl font-semibold text-center ${className}`}>{text}</div>
         </div>
