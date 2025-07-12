@@ -9,7 +9,7 @@ import type {
     StudentByNameResponse,
 } from '../../interface';
 import StudentCard from '../Card/StudentCard';
-
+import { IoIosArrowDropdown } from "react-icons/io";
 
 export function isSuccessResponse<T extends { success: boolean }>(data: any): data is T {
     return data && typeof data === 'object' && data.success === true;
@@ -23,7 +23,7 @@ function isErrorResponse(data: any): data is ErrorResponse {
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [program, setProgram] = useState("");
+    const [program, setProgram] = useState("BCA");
     const [visibleCount, setVisibleCount] = useState(3);
 
     const isEnrollment = /^\d{3}$/.test(searchTerm.trim());
@@ -38,6 +38,7 @@ function Search() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const {
         data: enrollmentData,
@@ -56,7 +57,7 @@ function Search() {
         refetch: refetchName,
         isFetching: isFetchingName,
     } = useQuery<StudentByNameResponse | ErrorResponse>({
-        queryKey: ['search-name', searchTerm],
+        queryKey: ['search-name', searchTerm,program],
         queryFn: () => services.getStudentsByName(searchTerm, program),
         enabled: false,
     });
@@ -80,18 +81,37 @@ function Search() {
 
             {/* Search Bar */}
             <form className="grid sm:flex items-center justify-center gap-4 my-6 w-full max-w-3xl" onSubmit={(e) => e.preventDefault()}>
-                <select
-                    disabled={isEnrollment}
-                    value={program}
-                    onChange={(e) => setProgram(e.target.value)}
-                    className="px-4 py-2 text-center rounded-lg accent text-white text-lg font-semibold bg-green-700 disabled:bg-gray-300"
-                >
-                    {["BCA", "BCOM", "BBA"].map((prog) => (
-                        <option key={prog} value={prog} className="text-black">
-                            {prog}
-                        </option>
-                    ))}
-                </select>
+                <div className="relative w-full sm:w-28">
+                    <button
+                        type="button"
+                        disabled={isEnrollment}
+                        onClick={() => setShowDropdown(!showDropdown)}
+                        className={`w-full flex justify-between items-center  px-4 py-2 text-lg font-semibold text-white rounded-lg text-center cursor-pointer ${isEnrollment ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-700 hover:bg-green-800'
+                            }`}
+                    >
+                        {program}  {!showDropdown ?
+                            <IoIosArrowDropdown className='transition  hover:animate-pulse' /> : <IoIosArrowDropdown className='transition-shadow hover:animate-pulse rotate-180' />}
+                    </button>
+
+                    {!isEnrollment && showDropdown && (
+                        <ul className="absolute z-10 mt-2 w-full bg-white border border-green-300 rounded-lg shadow-lg">
+                            {["BCA", "BCOM", "BBA"].map((prog) => (
+                                <li
+                                    key={prog}
+                                    onClick={() => {
+                                        setProgram(prog);
+                                        setShowDropdown(false);
+                                    }}
+                                    className={`px-4 py-2 text-lg text-center items-start text-gray-900 cursor-pointer hover:bg-green-100 ${program === prog ? "font-semibold text-green-700" : ""
+                                        }`}
+                                >
+                                    {prog}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
 
                 <div className="flex-grow flex items-center border border-green-300 rounded-lg px-4 py-3 bg-white focus-within:ring-2 focus-within:ring-green-400">
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="text-green-700 mr-3" />
