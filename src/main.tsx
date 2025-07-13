@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <ClassResultList/>,
       },
       {
-        path:"/search/:enroll",
+        path:"/student/:enroll",
         element: <DashBoard/>,
       }
     ]

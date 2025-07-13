@@ -16,11 +16,12 @@ export interface Student {
   semestersCount: number;
   cgpa: number;
   semesters: Semester[];
+  percentage:number
 }
 
 export interface Semester {
   sem: string;
-  subjectsCount: number;
+  subjectCount: number;
   totalMarks: number;
   maxMarks: number;
   totalCreditMarks: number;
@@ -29,6 +30,7 @@ export interface Semester {
   maxCredits: number;
   sgpa: number;
   subjects: Subject[];
+  percentage:number
 }
 
 export interface Subject{
