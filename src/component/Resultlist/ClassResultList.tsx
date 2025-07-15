@@ -6,12 +6,22 @@ import { services } from "../../services/services";
 import { useState } from "react";
 import StateMessage from "../StateMessage/StateMessage";
 
+
+import StudentMarksheet from "./StudentMarksheet";
+
 const ClassResultList:React.FC = () => {
 
     const [sem, setSem] = useState<string>("overall");
-
+    const [marksheet, setMarksheet] = useState<any>()
     const {course, batch} =  useParams<{course?:string, batch?:string}>();
-    console.log("course", course, "batch", batch);
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const  open = ():void=> setIsOpen(true)
+    const  close = ():void=> setIsOpen(false)
+
+   
+    
 
     const {data, isLoading, error} = useQuery<Programme>({
         queryKey: ['classResultList', course, batch],
@@ -27,7 +37,16 @@ const ClassResultList:React.FC = () => {
         return <StateMessage text={`${error.message}`} className="text-red-600" />;
     }
 
-    const semesterData  = data?.data.map((student: Student) => {
+   const a =  data?.data.filter((student: Student)=>{
+         if(sem == "overall") return true;
+         return student.semesters.some((semester: Semester) => sem == semester.sem);
+    })
+    console.log(a)
+
+    const semesterData  = data?.data.filter((student: Student)=>{
+         if(sem == "overall") return true;
+         return student.semesters.some((semester: Semester) => sem == semester.sem);
+    }).map((student: Student) => {
         if (sem === "overall") {
             return student
         }
@@ -47,6 +66,7 @@ const ClassResultList:React.FC = () => {
             maxCreditMarks: semester?.maxCreditMarks || 0,
             totalCredits: semester?.totalCredits || 0,
             maxCredits: semester?.maxCredits || 0,
+            percentage: semester?.percentage ||0,
             gpa: semester?.sgpa || 0,
             semester:semester
         }
@@ -80,7 +100,8 @@ const ClassResultList:React.FC = () => {
             rank: currentRank,
         };
     });
-    return (
+    console.log(marksheet)
+    return (<div className="relative">
         <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 min-h-screen">
             <div>
                 <h1 className="font-rubik  text-2xl sm:text-4xl lg:text-5xl font-bold text-green-800 m-2 text-center">
@@ -91,15 +112,15 @@ const ClassResultList:React.FC = () => {
             <div>
                 <div className="flex flex-col justify-center items-center gap-4 mb-2">
                     <label htmlFor="semester" className="sm:text-lg font-medium text-gray-700">Select Semester:</label>
-                    <div className="flex flex-wrap gap-2 justify-center text-xs sm:text-base">
+                    <div className="font-lexend flex flex-wrap gap-2 justify-center text-xs sm:text-base">
 
-                    <button  onClick={() => setSem("overall")} value={"overall"} className={`px-2 sm:px-4 py-2 rounded-md font-semibold ${sem === "overall" ? 'bg-green-800 text-white' : 'bg-green-200 border text-black  hover:bg-green-300'}`}>overall</button>
+                    <button  onClick={() => setSem("overall")} value={"overall"} className={`px-2  sm:px-4 py-2 rounded-md ${sem === "overall" ? 'bg-green-800 text-white' : 'bg-green-200 border text-black  hover:bg-green-300'}`}>overall</button>
                     {data?.data[0].semesters.map((semster:Semester)=>(
                         <button 
                         key={semster.sem} 
                         value={semster.sem} 
                         onClick={() => setSem(String(semster.sem))}
-                        className={`px-4 py-2 rounded-md font-semibold ${sem == semster.sem ? 'bg-green-800 border-white text-white' : 'bg-green-200 border text-black hover:bg-green-300'}`}
+                        className={`px-4  py-2 rounded-md  ${sem == semster.sem ? 'bg-green-800 border-white text-white' : 'bg-green-200 border text-black hover:bg-green-300'}`}
                         >
                             Sem {semster.sem}
                         </button>
@@ -127,7 +148,8 @@ const ClassResultList:React.FC = () => {
                        
                         return(<div
                             key={student.enrollment}
-                            className="font-lexend-400 cursor-pointer bg-emerald-100 rounded-xl  grid grid-cols-10 place-items-center gap-4 p-2 px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium"
+                            className="font-lexend cursor-pointer bg-emerald-100 rounded-xl  grid grid-cols-10 place-items-center gap-4 p-2 px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium"
+                            onClick={()=>{setMarksheet(student); open(); }}
                         >
                             <div className="font-mono col-span-2 ">{student.enrollment}</div>
                             <div className=" col-span-4 ">{student.name}</div>
@@ -138,8 +160,10 @@ const ClassResultList:React.FC = () => {
                         {/* Add more rows as needed */}
                     </div>
                 </div>
-            </div>    
+            </div>
+            
         </div>
-    )
+        <StudentMarksheet isOpen={isOpen} onClose={close} marksheet={marksheet} sem={sem} />  
+    </div>)
 }
 export default ClassResultList;
