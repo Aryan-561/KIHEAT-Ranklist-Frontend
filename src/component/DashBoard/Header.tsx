@@ -1,10 +1,30 @@
 import type { StudentByEnrollmentResponse } from '../../interface';
-
-// In interface.ts or locally:
+import { useLocation } from "react-router-dom";
+import type { FC } from "react";
+import {
+    faGraduationCap,
+    faBookOpen,
+    faStar,
+    faChartLine,
+    faMedal,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export type Student = StudentByEnrollmentResponse['data'];
 
 
-function Header({student}:{student:Student}) {
+
+export default function Header({ student }: { student: Student }) {
+    const location = useLocation();
+    const currentUrl = window.location.origin + location.pathname;
+
+    const handleShare = async () => {
+        try {
+            await navigator.clipboard.writeText(currentUrl);
+            alert("Link copied to clipboard!");
+        } catch (err) {
+            alert("Failed to copy the link.");
+        }
+    };
     return (
         <div className="bg-green-800 text-white p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between w-full  mx-auto gap-6">
             <div className="flex items-start gap-4">
@@ -35,7 +55,7 @@ function Header({student}:{student:Student}) {
                     <button className="bg-white text-green-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
                         Export Report
                     </button>
-                    <button className="bg-white text-green-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center gap-1">
+                    <button onClick={handleShare} className="bg-white text-green-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center gap-1">
                         {/* Share Icon */}
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 12v.01M12 4v.01M20 12v.01M12 20v.01M12 12h.01" />
@@ -48,4 +68,99 @@ function Header({student}:{student:Student}) {
     )
 }
 
-export default Header
+
+export const Achievments: FC<{ student: Student }> = ({ student }) => {
+
+    const computeDetails = () => {
+        const allSubjects = student.semesters.flatMap((sem) => sem.subjects);
+        const theoryCount = allSubjects.filter((s) => s.type.toLowerCase() === "theory").length;
+        const practicalCount = allSubjects.filter((s) => s.type.toLowerCase() === "practical").length;
+
+        const subjectMarks = allSubjects.map((sub) => ({
+            total: sub.total,
+            name: sub.paperName,
+        }));
+
+        const sortedMarks = subjectMarks.sort((a, b) => b.total - a.total);
+        const totalSubjects = sortedMarks.length;
+        const highestScore = sortedMarks[0];
+        const ninetyPlusSubjects = sortedMarks.filter((s) => s.total >= 90).length;
+
+        return {
+            CGPA: student.cgpa,
+            totalSubjects,
+            theoryCount,
+            practicalCount,
+            highestScore,
+            ninetyPlusSubjects,
+            totalCredits: student.totalCredits,
+            maxCredits: student.maxCredits
+
+        };
+    };
+
+    const details = computeDetails();
+
+    const cards = [
+        {
+            title: "Overall CGPA",
+            value: details.CGPA.toFixed(3),
+            description: "Out of 10.0",
+            icon: faGraduationCap,
+        },
+        {
+            title: "Total Subjects",
+            value: details.totalSubjects,
+            description: `Theory: ${details.theoryCount}, Practical: ${details.practicalCount}`,
+            icon: faBookOpen,
+        },
+        {
+            title: "Highest Scored Subject",
+            value: `${details.highestScore.name}`,
+            description: `Marks: ${details.highestScore.total}`,
+            icon: faChartLine,
+        },
+        {
+            title: "90+ Marks Subjects",
+            value: details.ninetyPlusSubjects,
+            description: "Subjects with ≥ 90 marks",
+            icon: faStar,
+        },
+        {
+            title: `${details.maxCredits} Max Credits`,
+            value: details.totalCredits,
+            description: "Total Earned Credits",
+            icon: faMedal,
+        },
+    ];
+
+    return (
+        <section className="flex flex-wrap justify-between gap-4 p-4 font-rubik">
+            {cards.map((card, i) => (
+                <div
+                    key={i}
+                    className="w-full cursor-pointer hover:border-green-600 sm:w-[48%] lg:w-[19%] min-w-0 rounded-2xl shadow-md p-5 bg-green-50 border border-green-300 text-green-900 transition hover:shadow-lg"
+                >
+                    <div className="flex items-center justify-between mb-3">
+                        <FontAwesomeIcon icon={card.icon} className="text-green-700 text-2xl" />
+                        <h3 className="text-lg font-lexend">
+                            {card.title}
+                        </h3>
+                    </div>
+
+                    <p className="text-xl font-bold font-gabarito">
+                        {card.value}
+                    </p>
+
+                    <p className="text-sm font-roboto-flex text-green-700 mt-1">
+                        {card.description}
+                    </p>
+                </div>
+            ))}
+        </section>
+
+
+
+    );
+};
+

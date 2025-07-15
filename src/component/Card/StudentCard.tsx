@@ -31,7 +31,7 @@ const getShortProgramme = (programme: string) => {
 
 const StudentCard: React.FC<{ student: Student }> = ({ student }) => {
     return (
-        <Link to={`${student.enrollment}`}>
+        <Link to={`/student/${student.enrollment}`}>
             <div className="cardBg shadow-md rounded-xl hover:bg-green-100 hover:border-l-4 hover:border-green-700 p-6 w-full max-w-2xl mx-auto mb-6 transition duration-200 border border-green-200">
                 <div className="flex justify-between items-start">
                     <div className="flex gap-4">
