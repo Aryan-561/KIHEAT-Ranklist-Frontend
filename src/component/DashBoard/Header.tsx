@@ -27,8 +27,8 @@ export default function Header({ student }: { student: Student }) {
     };
     return (
         <div className="bg-green-800 text-white p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between w-full  mx-auto gap-6">
-            <div className="flex items-start gap-4">
-                <div className="bg-white text-green-800 p-3 rounded-full">
+            <div className=" flex  sm:flex-row flex-col  items-center gap-4">
+                <div className="bg-white  text-green-800 p-3 rounded-full">
                     {/* Icon */}
                     <svg xmlns="/icon.png" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -36,21 +36,30 @@ export default function Header({ student }: { student: Student }) {
                     </svg>
                 </div>
                 <div>
-                    <h1 className="text-2xl font-bold">{student.name}</h1>
-                    <p className="text-sm">Enrollment: <span className="font-semibold">{student.enrollment}</span></p>
-                    <p className="text-sm uppercase font-medium text-gray-200">{student.programme}</p>
-                    <div className="flex gap-2 mt-2 text-sm text-green-100 font-medium">
-                        <span className="bg-green-700 px-3 py-1 rounded-full">Batch {student.batch}</span>
-                        <span className="bg-green-700 px-3 py-1 rounded-full"> Total {student.semestersCount} semesters</span>
-                        <span className="bg-green-700 px-3 py-1 rounded-full">{student.totalCredits} Credits</span>
+                    <h1 className="text-2xl font-bold text-center sm:text-start">{student.name}</h1>
+                    <p className="text-sm  sm:text-start text-center">Enrollment: <span className="font-semibold">{student.enrollment}</span></p>
+                    <p className="text-sm uppercase font-medium text-gray-200 whitespace-nowrap  sm:text-start text-center">{student.programme}</p>
+                    <div className="flex flex-wrap gap-2 mt-2 text-sm text-green-100 font-medium items-start">
+                        <span className="text-center bg-green-700 px-3 py-1 rounded-full whitespace-nowrap">
+                            Batch {student.batch}
+                        </span>
+                        <span className="text-center bg-green-700 px-3 py-1 rounded-full whitespace-nowrap">
+                            All {student.semestersCount} semesters
+                        </span>
+                        <span className="text-center bg-green-700 px-3 py-1 rounded-full whitespace-nowrap">
+                            {student.totalCredits} Credits
+                        </span>
                     </div>
+
                 </div>
             </div>
 
-            <div className="text-center md:text-right">
-                <h2 className="text-5xl font-extrabold text-white">{student.cgpa}</h2>
-                <p className="text-lg font-semibold">CGPA</p>
-                <p className="text-sm text-green-200">{student.percentage}% Overall</p>
+            <div className="text-center md:text-right w-full">
+                <div className="flex  md:flex-row items-center justify-center md:justify-end gap-2 md:gap-4">
+                    <h2 className="text-5xl font-extrabold text-white leading-tight">{student.cgpa}</h2>
+                    <p className="text-lg font-semibold text-green-100">CGPA</p>
+                </div>
+                <p className="text-sm text-green-200 mt-1 md:mt-2">{student.percentage}% Overall</p>
                 <div className="mt-4 flex justify-center md:justify-end gap-2">
                     <button className="bg-white text-green-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
                         Export Report

@@ -14,6 +14,18 @@ import {
     ComposedChart,
     BarChart,
 } from "recharts";
+import { FaTrophy, FaArrowDown, FaRankingStar } from 'react-icons/fa6';
+import { GiSpiderWeb } from "react-icons/gi";
+import { FaBolt } from "react-icons/fa";
+import {
+    FaMagnifyingGlassChart,
+    FaRegChartBar,
+    FaSignal,
+} from "react-icons/fa6"
+
+import { motion } from "framer-motion";
+import { Radar } from 'react-chartjs-2';
+import { useEffect, useState } from 'react';
 
 export type Student = StudentByEnrollmentResponse['data'];
 
@@ -25,10 +37,10 @@ const gradeColorMap: Record<string, string> = {
     "B": "#1F604D",
     "C": "#195344",
     "P": "#12453A",
-    "F": "#E74C3C", 
+    "F": "#E74C3C",
 };
 
-const getColor = (grade: string) => gradeColorMap[grade] || "#CBD5E1"; 
+const getColor = (grade: string) => gradeColorMap[grade] || "#CBD5E1";
 
 export default function Chart({ student }: { student: Student }) {
     const chartData = () => {
@@ -112,7 +124,7 @@ export default function Chart({ student }: { student: Student }) {
 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     {/* Pie Chart */}
-                    <ResponsiveContainer width="50%" height={250}>
+                    <ResponsiveContainer width="100%" height={250}>
                         <PieChart>
                             <Pie
                                 data={gradeData}
@@ -159,3 +171,219 @@ export default function Chart({ student }: { student: Student }) {
 }
 
 
+export const ResultInsights = ({ student }: { student: Student }) => {
+
+    const useIsMobile = () => {
+        const [isMobile, setIsMobile] = useState(false);
+
+        useEffect(() => {
+            const handleResize = () => {
+                setIsMobile(window.innerWidth < 640);
+            };
+
+            handleResize();
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
+        }, []);
+
+        return isMobile;
+    };
+
+    const allSubjects = student.semesters.flatMap((sem) =>
+        sem.subjects.map((sub) => ({
+            name: sub.paperName,
+            code: sub.paperCode,
+            marks: sub.total,
+            sem: sem.sem,
+        }))
+    );
+
+    const sortedSubjects = [...allSubjects].sort((a, b) => b.marks - a.marks);
+    const top3 = sortedSubjects.slice(0, 3);
+    const bottom3 = sortedSubjects.slice(-3).reverse();
+    const isMobile = useIsMobile();
+
+    const radarLabels = [...top3, ...bottom3].map(
+        (s) => isMobile
+            ? [s.code, `(Sem ${s.sem})`]
+            : [s.name, `(Sem ${s.sem})`]
+    );
+    const radarValues = [...top3, ...bottom3].map((s) => s.marks);
+
+    const radarData = {
+        labels: radarLabels,
+        datasets: [
+            {
+                label: "Subject Scores",
+                data: radarValues,
+                backgroundColor: "rgba(34,197,94,0.2)",
+                borderColor: "rgba(34,197,94,1)",
+                borderWidth: 2,
+                pointBackgroundColor: "rgba(34,197,94,1)",
+            },
+        ],
+    };
+
+    const radarOptions = {
+        responsive: true,
+        scales: {
+            r: {
+                beginAtZero: true,
+                max: Math.ceil(Math.max(...radarValues) / 10) * 10,
+                ticks: {
+                    stepSize: 20,
+                    backdropColor: "transparent",
+                    color: "#6b7280",
+                },
+                pointLabels: {
+                    font: { size: 13 },
+                    color: "#000000",
+                },
+                grid: {
+                    color: "#e5e7eb",
+                },
+            },
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+    };
+
+    // Best & Worst Sem
+    const percentages = student.semesters.map((s) => ({
+        sem: s.sem,
+        percentage:
+            s.subjects.reduce((acc, sub) => acc + sub.total, 0) /
+            s.subjects.length,
+    }));
+    const highestSem = percentages.reduce((a, b) => (a.percentage > b.percentage ? a : b));
+    const lowestSem = percentages.reduce((a, b) => (a.percentage < b.percentage ? a : b));
+
+    const avg = percentages.reduce((acc, curr) => acc + curr.percentage, 0) / percentages.length;
+    const stdDev = Math.sqrt(
+        percentages.reduce((acc, curr) => acc + Math.pow(curr.percentage - avg, 2), 0) / percentages.length
+    );
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-green-50 rounded-xl">
+
+            {/* Radar Chart */}
+            <div className="p-4 bg-white rounded-xl shadow">
+                <h2 className="text-lg font-semibold text-black mb-2 flex items-center gap-2">
+                    <GiSpiderWeb className="text-green-600" />
+                    Top & Bottom Subjects Radar
+                </h2>
+                <Radar data={radarData} options={radarOptions} />
+            </div>
+
+            {/* Highlights */}
+            <div className="p-4 bg-white rounded-xl shadow">
+                <h2 className="text-lg font-semibold mb-2 text-black">
+                    Performance Highlights
+                </h2>
+
+                <div className="mb-4">
+                    <h3 className="text-black font-semibold mb-1 flex items-center gap-2">
+                        <FaTrophy className="text-green-500" /> Top Achievements
+                    </h3>
+                    {top3.map((s, i) => (
+                        <div
+                            key={s.code}
+                            className="flex justify-between items-center bg-green-100 text-green-900 px-3 py-2 rounded-lg mb-2"
+                        >
+                            <span>
+                                #{i + 1} {s.name} ({s.code} - Sem {s.sem})
+                            </span>
+                            <span className="font-bold text-lg">{s.marks}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div>
+                    <h3 className="text-black font-semibold mb-1 flex items-center gap-2">
+                        <FaArrowDown className="text-red-500" /> Growth Opportunities
+                    </h3>
+                    {bottom3.map((s, i) => (
+                        <div
+                            key={s.code}
+                            className="flex justify-between items-center bg-red-100 text-red-900 px-3 py-2 rounded-lg mb-2"
+                        >
+                            <span>
+                                #{i + 1} {s.name} ({s.code} - Sem {s.sem})
+                            </span>
+                            <span className="font-bold text-lg">{s.marks}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Deep Analysis */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="col-span-1 md:col-span-2 p-6 bg-white rounded-2xl shadow-md border border-gray-200"
+            >
+                <h2 className="text-lg font-bold mb-4 text-black flex items-center gap-2">
+                    <FaMagnifyingGlassChart className="text-indigo-600" />
+                    Performance Deep Dive
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm md:text-base text-gray-800">
+                    <div className="flex cursor-pointer hover:bg-green-200/50  items-start gap-3 bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <FaRegChartBar className="text-blue-500 text-xl mt-1" />
+                        <div>
+                            <strong>Best Semester:</strong>
+                            <br />
+                            Semester <strong>{highestSem.sem}</strong> with{" "}
+                            <strong>{highestSem.percentage.toFixed(2)}%</strong>
+                        </div>
+                    </div>
+
+                    <div className="flex cursor-pointer hover:bg-green-200/50  items-start gap-3 bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <FaSignal className="text-red-500 text-xl mt-1" />
+                        <div>
+                            <strong>Lowest Semester:</strong>
+                            <br />
+                            Semester <strong>{lowestSem.sem}</strong> with{" "}
+                            <strong>{lowestSem.percentage.toFixed(2)}%</strong>
+                        </div>
+                    </div>
+
+                    <div className="flex cursor-pointer hover:bg-green-200/50  items-start gap-3 bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <FaBolt className="text-yellow-500 text-xl mt-1" />
+                        <div>
+                            <strong>Consistency Score:</strong>
+                            <br />
+                            {stdDev.toFixed(2)}{" "}
+                        </div>
+                    </div>
+
+                    <div className=" flex cursor-pointer hover:bg-green-200/50   items-start gap-3 bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <FaRankingStar className="text-purple-600 text-xl mt-1" />
+                        <div>
+                            <strong>CGPA:</strong> {student.cgpa} / 10 <br />
+                            <strong>Remark:</strong>{" "}
+                            {student.cgpa >= 9
+                                ? "🌟 Exceptional – Dean’s List"
+                                : student.cgpa >= 8.5
+                                    ? "🎓 Excellent – Honors Candidate"
+                                    : student.cgpa >= 7.5
+                                        ? "✅ Very Good – Keep building"
+                                        : student.cgpa >= 6.5
+                                            ? "🟡 Decent – Improve weaker terms"
+                                            : student.cgpa >= 5.5
+                                                ? "⚠️ Below Average – Focus more"
+                                                : student.cgpa >= 4
+                                                    ? "🔴 Poor – Critical improvement needed"
+                                                    : "🕵️‍♂️ So low even Sherlock can't find it!"
+                            }
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
