@@ -75,15 +75,15 @@ export default function Chart({ student }: { student: Student }) {
     }));
 
     return (
-        <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-screen">
+        <div className="p-1 sm:p-4  font-lexend grid grid-cols-1 place-items-center lg:grid-cols-2 gap-4 min-h-screen">
             {/* 1. SGPA & Percentage Chart */}
-            <div className="bg-white hover:shadow-xl w-full p-4 rounded-lg shadow-md">
-                <h2 className="font-semibold text-lg mb-2 rubik text-black">Academic Performance Journey</h2>
-                <p className="text-sm text-gray-500 mb-4">
+            <div className="bg-green-50 h-full hover:shadow-xl border-2 border-black w-full sm:w-[90%] lg:w-full  p-3 sm:p-4 rounded-lg shadow-md">
+                <h2 className="font-semibold text-base sm:text-lg mb-2  text-black">Academic Performance Journey</h2>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4">
                     Your SGPA progression shows consistent improvement across semesters
                 </p>
-                <ResponsiveContainer width="100%" height={250}>
-                    <ComposedChart data={data} margin={{ top: 20, right: 30, bottom: 10, left: 10 }}>
+                <ResponsiveContainer  width="100%" height={250}>
+                    <ComposedChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
                         <CartesianGrid strokeDasharray="2 2" />
                         <XAxis dataKey="sem" />
                         <YAxis yAxisId="left" domain={[6, 10]} />
@@ -97,12 +97,12 @@ export default function Chart({ student }: { student: Student }) {
             </div>
 
             {/* 2. Internal vs External Chart */}
-            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl">
-                <h2 className="font-semibold text-lg mb-2 rubik text-black">Internal vs External Performance</h2>
-                <p className="text-sm text-gray-500 mb-4">
+            <div className="bg-green-50 h-full sm:w-[90%] lg:w-full border-2 border-black  p-3 sm:p-4 rounded-lg shadow-md hover:shadow-xl">
+                <h2 className="font-semibold text-base sm:text-lg mb-2 rubik text-black">Internal vs External Performance</h2>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4">
                     Comparison of internal assessment and external exam performance
                 </p>
-                <ResponsiveContainer width="100%" height={250}>
+                <ResponsiveContainer className={``} width="100%" height={250}>
                     <BarChart data={data}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="sem" />
@@ -116,13 +116,13 @@ export default function Chart({ student }: { student: Student }) {
             </div>
 
             {/* 3. Grade Pie Chart + Breakdown */}
-            <div className="bg-white p-4 rounded-lg shadow-md col-span-1 lg:col-span-2">
-                <h2 className="font-semibold text-lg mb-2 text-black">Comprehensive Grade Analysis</h2>
-                <p className="text-sm text-gray-500 mb-4">
+            <div className="bg-green-50 h-full p-3 sm:p-4 w-full sm:w-[90%] lg:w-full  border-2 border-black rounded-lg shadow-md col-span-1 lg:col-span-2">
+                <h2 className="font-semibold text-base sm:text-lg mb-2 text-black">Comprehensive Grade Analysis</h2>
+                <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-4">
                     Detailed breakdown of your grade distribution across all subjects
                 </p>
 
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-2">
                     {/* Pie Chart */}
                     <ResponsiveContainer width="100%" height={250}>
                         <PieChart>
@@ -132,6 +132,7 @@ export default function Chart({ student }: { student: Student }) {
                                 nameKey="name"
                                 cx="50%"
                                 cy="50%"
+                                innerRadius={40}
                                 outerRadius={80}
                                 label
                             >
