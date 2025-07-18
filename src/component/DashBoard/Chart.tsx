@@ -13,7 +13,17 @@ import {
     ResponsiveContainer,
     ComposedChart,
     BarChart,
+    Radar,
+    RadarChart,
+
+    PolarGrid,
+    PolarAngleAxis,
+    PolarRadiusAxis,
 } from "recharts";
+
+import { Radar as RadarChartJS } from 'react-chartjs-2';
+
+
 import { FaTrophy, FaArrowDown, FaRankingStar } from 'react-icons/fa6';
 import { GiSpiderWeb } from "react-icons/gi";
 import { FaBolt } from "react-icons/fa";
@@ -24,10 +34,25 @@ import {
 } from "react-icons/fa6"
 
 import { motion } from "framer-motion";
-import { Radar } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip  as ChartToolTip,
+    Legend as ChartLegend,
+} from 'chart.js';
 export type Student = StudentByEnrollmentResponse['data'];
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    ChartToolTip,
+    ChartLegend
+);
 
 const gradeColorMap: Record<string, string> = {
     "O": "#30A17B",
@@ -82,7 +107,7 @@ export default function Chart({ student }: { student: Student }) {
                 <p className="text-xs sm:text-sm text-gray-500 mb-4">
                     Your SGPA progression shows consistent improvement across semesters
                 </p>
-                <ResponsiveContainer  width="100%" height={250}>
+                <ResponsiveContainer width="100%" height={250}>
                     <ComposedChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
                         <CartesianGrid strokeDasharray="2 2" />
                         <XAxis dataKey="sem" />
@@ -170,7 +195,6 @@ export default function Chart({ student }: { student: Student }) {
         </div>
     );
 }
-
 
 export const ResultInsights = ({ student }: { student: Student }) => {
 
@@ -276,7 +300,7 @@ export const ResultInsights = ({ student }: { student: Student }) => {
                     <GiSpiderWeb className="text-green-600" />
                     Top & Bottom Subjects Radar
                 </h2>
-                <Radar data={radarData} options={radarOptions} />
+                <RadarChartJS data={radarData} options={radarOptions} />
             </div>
 
             {/* Highlights */}
@@ -385,6 +409,74 @@ export const ResultInsights = ({ student }: { student: Student }) => {
                     </div>
                 </div>
             </motion.div>
+        </div>
+    );
+};
+
+interface SubjectData {
+    subjectname: string;
+    internal: number;
+    external: number;
+    subjectCode: string
+}
+
+interface SemesterData {
+    semesterNum: number | string;
+    semesterWiseSubjectData: SubjectData[];
+}
+
+export const RadarChartSingleSemester = ({ graphData }: { graphData: SemesterData | null }) => {
+    const subjects = graphData?.semesterWiseSubjectData || [];
+
+    // Convert to Recharts data format
+    const radarData = subjects.map((subject) => ({
+        subject: subject.subjectname,
+        subjectCode: subject.subjectCode,
+        Internal: subject.internal,
+        External: subject.external,
+    }));
+
+    return (
+        <div className="w-full  p-4 rounded-2xl  max-w-3xl mx-auto">
+            <h2 className="text-white text-xl font-semibold text-center mb-4">
+                Semester {graphData?.semesterNum} – Internal vs External Marks
+            </h2>
+            <ResponsiveContainer width="100%" height={400}>
+                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                    <PolarGrid stroke="#a7f3d0" />
+                    <PolarAngleAxis dataKey="subjectCode" tick={{ fill: "white", fontSize: 12 }} />
+                    <PolarRadiusAxis angle={30} domain={[0, 60]} tick={{ fill: "#ecfdf5" }} />
+                    <Tooltip
+                        formatter={(value: number, name: string) =>
+                            [`${value}`, name === "Internal" ? "Internal Marks" : "External Marks"]
+                        }
+                        labelFormatter={(label: string) => {
+                            const fullName = radarData.find(d => d.subjectCode === label)?.subject;
+                            return fullName ? `Subject: ${fullName}` : `Subject Code: ${label}`;
+                        }}
+                        contentStyle={{
+                            backgroundColor: "#064e3b",
+                            borderColor: "#10b981",
+                            color: "#fff",
+                        }}
+                        itemStyle={{ color: "#d1fae5" }}
+                    />
+                    <Radar
+                        name="Internal"
+                        dataKey="Internal"
+                        stroke="#10b981"
+                        fill="#10b981"
+                        fillOpacity={0.4}
+                    />
+                    <Radar
+                        name="External"
+                        dataKey="External"
+                        stroke="#22c55e"
+                        fill="#22c55e"
+                        fillOpacity={0.4}
+                    />
+                </RadarChart>
+            </ResponsiveContainer>
         </div>
     );
 };
