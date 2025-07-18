@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -88,17 +88,18 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                         <div className="font-semibold">
                             {marksheet?.name}
                         </div>
-                        <Link to={`/student/${marksheet?.enrollment}`} className="font-semibold text-green-800 underline">
-                            {marksheet?.enrollment}
+                        <Link to={`/student/${marksheet?.enrollment}`} className="font-semibold text-green-800 underline flex justify-center items-center gap-1 hover:text-green-700 hover:scale-101">
+                            <span>{marksheet?.enrollment}</span>
+                            <FontAwesomeIcon icon={faUpRightFromSquare} className="text-base" />
                         </Link>
                         {sem !="overall" && <div className="font-semibold rounded-2xl bg-lime-100 p-1 px-2">
                             {marksheet?.gpa}
                         </div>}
                     </div>
                 </div>
-                <div className="w-[90%] sm:w-10/12  grid gap-2 grid-cols-3 sm:grid-cols-4 text-xs font-lexend">
+                <div className="w-[90%] sm:w-10/12  grid gap-2 grid-cols-3 sm:grid-cols-4 text-[0.6rem] sm:text-xs font-lexend">
                     
-                    <div className="flex flex-col   border-2 justify-center items-center p-2 rounded-xl gap-1  font-semibold">
+                    <div className="flex flex-col   border-2 justify-center items-center p-2 rounded-xl gap-1  font-semibold ">
                         <div>
                             Marks
                         </div>
