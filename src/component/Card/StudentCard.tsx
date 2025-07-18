@@ -13,7 +13,7 @@ interface Student {
     sid: string;
     batch: string;
     sem?: string;
-    cgpa?: string;
+    cgpa?: number;
     rank?: string;
     department?: string;
 }
