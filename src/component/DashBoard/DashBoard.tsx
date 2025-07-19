@@ -123,26 +123,35 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                     <div className="w-[90%] sm:w-10/12 grid gap-2 grid-cols-3 sm:grid-cols-4 text-xs sm:text-sm font-lexend">
                         <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Marks</div>
-                            <div>
-                                {marksheet?.earnTotal}/{marksheet?.totalMarks}
-                            </div>
+                            <div>{
+                                sem === "overall"
+                                    ? `${marksheet?.earnTotal}/${marksheet?.totalMarks}`
+                                    : `${currentSemData?.totalMarks}/${currentSemData?.maxMarks}`
+                            }</div>
                         </div>
                         <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Credits</div>
                             <div>
-                                {marksheet?.earnCredits}/{marksheet?.totalCredits}
+                                {
+
+                                    sem=== "overall"
+                                        ? `${marksheet?.earnCredits}/${marksheet?.totalCredits}`
+                                        : `${currentSemData?.totalCredits}/${currentSemData?.maxCredits}`
+                                }
                             </div>
                         </div>
                         <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Percentage</div>
-                            <div>{marksheet?.percentage?.toFixed(2)}%</div>
+                            <div>{sem === "overall"
+                                ? marksheet?.percentage?.toFixed(2)
+                                : currentSemData?.percentage?.toFixed(2)}%</div>
                         </div>
                         <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>{sem === "overall" ? "CGPA" : "SGPA"}</div>
                             <div>
                                 {sem === "overall"
                                     ? marksheet?.cgpa
-                                    : currentSemData?.gpa?.toFixed(2)}
+                                    : currentSemData?.gpa?.toFixed(3)}
                             </div>
                         </div>
                     </div>
@@ -172,8 +181,8 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                                 >
                                     <div>{`Sem ${semester.semesterNum}`}</div>
                                     <div>{`${semester.totalMarks}/${semester.maxMarks}`}</div>
-                                    <div>{`${semester.percentage?.toFixed(2)}%`}</div>
-                                    <div>{semester.gpa?.toFixed(2)}</div>
+                                    <div>{`${semester.percentage?.toFixed(3)}%`}</div>
+                                    <div>{semester.gpa?.toFixed(3)}</div>
                                 </motion.div>
                             ))}
                         </>
@@ -289,22 +298,24 @@ export default function DashBoard() {
             <Header student={student} />
             <Achievments student={student} />
 
-            <div className="flex w-full border cursor-pointer border-green-600 rounded-md py-0.5 bg-green-50 my-2">
-                {[
-                    { label: "Overview", key: "overall" },
-                    { label: "Semesters", key: "semester" },
-                    { label: "Insights", key: "analysis" }
-                ].map((item) => (
-                    <span
-                        key={item.key}
-                        onClick={() => setActiveTab(item.key as typeof activeTab)}
-                        className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center rubik rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-700 font-semibold" : "hover:bg-black/5 text-black"
-                            }`}
-                    >
-                        {item.label}
-                    </span>
-                ))}
-            </div>
+           <div className="w-full flex flex-col items-center justify-center gap-2 sm:gap-4 mb-3.5">
+                <div className="flex w-full lg:max-w-7xl mb-10 border cursor-pointer border-green-600 rounded-md py-0.5 bg-green-50 my-2">
+                    {[
+                        { label: "Overview", key: "overall" },
+                        { label: "Semesters", key: "semester" },
+                        { label: "Insights", key: "analysis" }
+                    ].map((item) => (
+                        <span
+                            key={item.key}
+                            onClick={() => setActiveTab(item.key as typeof activeTab)}
+                            className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center rubik rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-700 font-semibold" : "hover:bg-black/5 text-black"
+                                }`}
+                        >
+                            {item.label}
+                        </span>
+                    ))}
+                </div>
+           </div>
 
 
             {/* CONDITIONAL VIEWS */}

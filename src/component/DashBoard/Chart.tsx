@@ -295,7 +295,7 @@ export const ResultInsights = ({ student }: { student: Student }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-green-50 rounded-xl">
 
             {/* Radar Chart */}
-            <div className="p-4 bg-white rounded-xl shadow">
+            <div className="p-4 bg-green-50 font-lexend rounded-xl shadow">
                 <h2 className="text-lg font-semibold text-black mb-2 flex items-center gap-2">
                     <GiSpiderWeb className="text-green-600" />
                     Top & Bottom Subjects Radar
@@ -304,7 +304,7 @@ export const ResultInsights = ({ student }: { student: Student }) => {
             </div>
 
             {/* Highlights */}
-            <div className="p-4 bg-white rounded-xl shadow">
+            <div className="p-4 bg-green-50 font-lexend rounded-xl shadow">
                 <h2 className="text-lg font-semibold mb-2 text-black">
                     Performance Highlights
                 </h2>
@@ -316,10 +316,10 @@ export const ResultInsights = ({ student }: { student: Student }) => {
                     {top3.map((s, i) => (
                         <div
                             key={s.code}
-                            className="flex justify-between items-center bg-green-100 text-green-900 px-3 py-2 rounded-lg mb-2"
+                            className="flex justify-between capitalize items-center bg-green-100 text-green-900 px-3 py-2 rounded-lg mb-2"
                         >
                             <span>
-                                #{i + 1} {s.name} ({s.code} - Sem {s.sem})
+                                #{i + 1} {s.name.toLowerCase()} ({s.code} - Sem {s.sem})
                             </span>
                             <span className="font-bold text-lg">{s.marks}</span>
                         </div>
@@ -333,10 +333,10 @@ export const ResultInsights = ({ student }: { student: Student }) => {
                     {bottom3.map((s, i) => (
                         <div
                             key={s.code}
-                            className="flex justify-between items-center bg-red-100 text-red-900 px-3 py-2 rounded-lg mb-2"
+                            className="flex justify-between capitalize items-center bg-red-100 text-red-900 px-3 py-2 rounded-lg mb-2"
                         >
                             <span>
-                                #{i + 1} {s.name} ({s.code} - Sem {s.sem})
+                                #{i + 1} {s.name.toLowerCase()} ({s.code} - Sem {s.sem})
                             </span>
                             <span className="font-bold text-lg">{s.marks}</span>
                         </div>
@@ -349,7 +349,7 @@ export const ResultInsights = ({ student }: { student: Student }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="col-span-1 md:col-span-2 p-6 bg-white rounded-2xl shadow-md border border-gray-200"
+                className="col-span-1 md:col-span-2 p-6 bg-green-50 rounded-2xl shadow-md border border-gray-200"
             >
                 <h2 className="text-lg font-bold mb-4 text-black flex items-center gap-2">
                     <FaMagnifyingGlassChart className="text-indigo-600" />

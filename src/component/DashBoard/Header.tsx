@@ -151,7 +151,7 @@ export const Achievments: FC<{ student: Student }> = ({ student }) => {
             {cards.map((card, i) => (
                 <div
                     key={i}
-                    className={`flex flex-col items-center justify-center w-full sm:w-[32%] lg:w-[22%] cursor-pointer min-h-[160px] text-center hover:border-green-600 rounded-2xl shadow-md p-4 bg-green-50 border border-green-300 text-green-900 transition hover:shadow-lg`}
+                    className={`flex flex-col items-center justify-center w-full sm:w-[32%] lg:w-[18%] cursor-pointer min-h-[160px] text-center hover:border-green-600 rounded-2xl shadow-md p-4 bg-green-50 border border-green-300 text-green-900 transition hover:shadow-lg`}
                 >
                     <div className="flex items-center justify-center gap-2 mb-3">
                         <FontAwesomeIcon icon={card.icon} className="text-green-700 text-2xl" />
