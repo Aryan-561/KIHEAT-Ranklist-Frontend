@@ -41,7 +41,7 @@ import {
     PointElement,
     LineElement,
     Filler,
-    Tooltip  as ChartToolTip,
+    Tooltip as ChartToolTip,
     Legend as ChartLegend,
 } from 'chart.js';
 export type Student = StudentByEnrollmentResponse['data'];
@@ -111,8 +111,8 @@ export default function Chart({ student }: { student: Student }) {
                     <ComposedChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
                         <CartesianGrid strokeDasharray="2 2" />
                         <XAxis dataKey="sem" />
-                        <YAxis yAxisId="left" domain={[6, 10]} />
-                        <YAxis yAxisId="right" orientation="right" domain={[60, 100]} />
+                        <YAxis yAxisId="left" domain={[1, 10]} />
+                        <YAxis yAxisId="right" orientation="right" domain={[1, 100]} />
                         <Tooltip />
                         <Legend />
                         <Bar yAxisId="right" dataKey="percentage" fill="#9AE6B4" barSize={40} />
@@ -131,7 +131,14 @@ export default function Chart({ student }: { student: Student }) {
                     <BarChart data={data}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="sem" />
-                        <YAxis />
+                        <YAxis
+                            domain={[
+                                0,
+                                Math.ceil(
+                                    (Math.max(...data.map(item => item.internal + item.external)) ) / 100
+                                ) * 100
+                            ]}
+                        />
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="internal" fill="#38A169" />
