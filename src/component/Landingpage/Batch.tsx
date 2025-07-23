@@ -5,9 +5,9 @@ import { services } from "../../services/services";
 import type { ProgrammeBatchesResponse } from "../../interface";
 import { courses } from "../../constant/constant";
 import {SelectBatch} from "../Select/Select";
-import ClassResultList from "../Resultlist/ClassResultList";
+// import ClassResultList from "../Resultlist/ClassResultList";
 const Batch: React.FC = () => {
-    const { course, batch } = useParams();
+    const { course } = useParams();
 
     const findCourseName = (course: string) => {
 
@@ -35,6 +35,7 @@ const Batch: React.FC = () => {
     }
 
     if (error) {
+        console.log("error", error)
         return <CenteredMessage text="Failed to load batches. Please try again later." className="text-red-600" />;
     }
 
@@ -49,8 +50,8 @@ const Batch: React.FC = () => {
         return <CenteredMessage text="No batches available for this course." className="text-gray-500" />;
     }
 
-    return (<div className={`min-h-screen`}>
-        <div className={`p-6 sm:p-8 border-2 m-4 my-8 bg-emerald-200 border-black rounded-2xl flex flex-col items-center justify-start gap-5 `}>
+    return (<>
+        <div className={`p-6 sm:p-8 border-2 m-4 my-8 bg-green-100 border-black rounded-2xl flex flex-col items-center justify-start gap-5 `}>
             <h1 className="text-lg sm:text-4xl font-bold text-black/90 text-center font-rubik">
                 {courseName}
             </h1>
@@ -64,12 +65,9 @@ const Batch: React.FC = () => {
             </div>
 
         </div>
-        {
-            batch && <ClassResultList/>
-        }
         
 
-    </div>);
+    </>);
 };
 
 export default Batch;
