@@ -28,7 +28,7 @@ export default function Header({ student }: { student: Student }) {
         }
     };
     return (
-        <div className="bg-emerald-900 m-6 text-white p-6 rounded-xl shadow-lg grid grid-col-1 sm:grid-cols-3 w-[95%]  mx-auto gap-6 font-rubik">
+        <div className="bg-green-900 m-6 text-white p-6 rounded-xl shadow-lg grid grid-col-1 sm:grid-cols-3 w-[95%]  mx-auto gap-6 font-rubik">
             <div className=" flex flex-col sm:flex-row  sm:col-span-2 items-center gap-2">
                 
                 <div className=''>

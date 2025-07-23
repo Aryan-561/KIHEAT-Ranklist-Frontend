@@ -56,7 +56,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
             <motion.div
                 layout // Enables smooth height animation
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="text-black my-4 bg-emerald-800 border-black border-2 w-full sm:w-10/12 mx-auto flex flex-col items-center justify-center gap-4 p-4 rounded-2xl relative">
+                className="text-black my-4 bg-green-900 border-black border-2 w-full sm:w-10/12 mx-auto flex flex-col items-center justify-center gap-4 p-4 rounded-2xl relative">
 
                 <AnimatePresence mode="wait">
                     {sem !== "overall" && (
@@ -119,9 +119,9 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
 
 
                 {/* Summary Section */}
-                <div className="w-full flex flex-col justify-center items-center bg-emerald-200 py-4 rounded-2xl border-2">
-                    <div className="w-[90%] sm:w-10/12 grid gap-2 grid-cols-3 sm:grid-cols-4 text-xs sm:text-sm font-lexend">
-                        <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
+                <div className="w-full flex flex-col justify-center items-center bg-emerald-200 py-4 rounded-2xl  border-2">
+                    <div className="w-[90%] sm:w-10/12 grid gap-2  grid-cols-3 sm:grid-cols-4 text-xs sm:text-sm font-lexend">
+                        <div className="flex flex-col  border-black  border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Marks</div>
                             <div>{
                                 sem === "overall"
@@ -129,24 +129,24 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                                     : `${currentSemData?.totalMarks}/${currentSemData?.maxMarks}`
                             }</div>
                         </div>
-                        <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
+                        <div className="flex flex-col border-black   border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Credits</div>
                             <div>
                                 {
 
-                                    sem=== "overall"
+                                    sem === "overall"
                                         ? `${marksheet?.earnCredits}/${marksheet?.totalCredits}`
                                         : `${currentSemData?.totalCredits}/${currentSemData?.maxCredits}`
                                 }
                             </div>
                         </div>
-                        <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
+                        <div className="flex flex-col border-black  border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Percentage</div>
                             <div>{sem === "overall"
                                 ? marksheet?.percentage?.toFixed(2)
                                 : currentSemData?.percentage?.toFixed(2)}%</div>
                         </div>
-                        <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl font-semibold">
+                        <div className="flex flex-col border-2  border-black   justify-center items-center p-2 rounded-xl font-semibold">
                             <div>{sem === "overall" ? "CGPA" : "SGPA"}</div>
                             <div>
                                 {sem === "overall"
@@ -166,7 +166,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                     {sem === "overall" ? (
                         <>
                             {/* Overall Table */}
-                            <div className="font-rubik text-[10px] sm:text-base grid grid-cols-4 gap-6 my-2 p-3 rounded-xl bg-emerald-800 text-white font-medium text-center">
+                            <div className="font-rubik text-[10px] sm:text-base grid grid-cols-4 gap-6 my-2 p-3 rounded-xl bg-green-900 text-white font-medium text-center">
                                 <div>Semester</div>
                                 <div>Marks</div>
                                 <div>Percentage</div>
@@ -189,7 +189,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                     ) : (
                         <>
                             {/* Semester Table */}
-                            <div className="font-rubik text-[10px] sm:text-base grid grid-cols-10 gap-x-2  sm:gap-6 my-2 p-3 rounded-xl bg-emerald-800 text-white font-medium">
+                            <div className="font-rubik text-[10px] sm:text-base grid grid-cols-10 gap-x-2  sm:gap-6 my-2 p-3 rounded-xl bg-green-800 text-white font-medium">
                                 <div className="col-span-4">Subject (credits)</div>
                                 <div className="text-center col-span-2">Course Code</div>
                                 <div className="text-center col-span-2">Int.|Ext.</div>
@@ -235,6 +235,7 @@ export default function DashBoard() {
         data: enrollmentData,
         isLoading,
         isError,
+        error
     } = useQuery({
         queryKey: ['search-enrollment', enroll],
         queryFn: () => services.getStudentByEnrollment(String(enroll)),
@@ -253,7 +254,9 @@ export default function DashBoard() {
     }
 
     if (isError || !enrollmentData?.data) {
-        return <p>Error loading student data or student not found.</p>;
+        return <div className="w-full flex items-center justify-center">
+            <span className="px-2.5 text-red-700 border-black/30 py-1.5  border rounded-2xl">{error?.message}</span>
+        </div>
     }
 
     const student = enrollmentData.data;
@@ -298,7 +301,7 @@ export default function DashBoard() {
             <Header student={student} />
             <Achievments student={student} />
 
-           <div className="w-full flex flex-col items-center justify-center gap-2 sm:gap-4 mb-3.5">
+            <div className="w-full flex flex-col items-center justify-center gap-2 sm:gap-4 mb-3.5">
                 <div className="flex w-full lg:max-w-7xl mb-10 border cursor-pointer border-green-600 rounded-md py-0.5 bg-green-50 my-2">
                     {[
                         { label: "Overview", key: "overall" },
@@ -308,14 +311,14 @@ export default function DashBoard() {
                         <span
                             key={item.key}
                             onClick={() => setActiveTab(item.key as typeof activeTab)}
-                            className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center rubik rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-700 font-semibold" : "hover:bg-black/5 text-black"
+                            className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center rubik rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-800/90 font-semibold" : "hover:bg-black/5 text-black"
                                 }`}
                         >
                             {item.label}
                         </span>
                     ))}
                 </div>
-           </div>
+            </div>
 
 
             {/* CONDITIONAL VIEWS */}

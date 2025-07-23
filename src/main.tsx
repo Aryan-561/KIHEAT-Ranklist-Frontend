@@ -7,8 +7,10 @@ import Home from "./pages/Home/Home.tsx";
 import BatchPage from "./pages/Batch/BatchPage.tsx";
 import Search from "./component/Search/Search.tsx";
 import DashBoard from "./component/DashBoard/DashBoard.tsx";
-import ResultPage from "./pages/ResultPage/ResultPage.tsx";
 import _404_page from "./component/404/404.tsx";
+import AboutPage from "./pages/Home/About.tsx";
+import ResultPage from "./pages/ResultPage/ResultPage.tsx";
+
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
       {
         path:"/:course",
