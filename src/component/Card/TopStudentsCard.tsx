@@ -4,8 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { services } from "../../services/services";
 import type { TopStudentsResponse } from "../../interface";
 import { programmeCodes } from "../../constant/constant";
+import {
+  faBook,
+  faBuildingColumns,
+  faCalendar,
+  faIdCard,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faBuildingColumns, faCalendar, faIdCard, faUser } from "@fortawesome/free-solid-svg-icons";
 import StateMessage from "../StateMessage/StateMessage";
 
 const TopStudentsCard: React.FC = () => {
@@ -15,74 +21,80 @@ const TopStudentsCard: React.FC = () => {
   });
 
   if (isLoading) {
-        return <StateMessage text="Loading Students..." className="text-gray-600 animate-pulse" />;
-    }
+    return (
+      <StateMessage
+        text="Loading Students..."
+        className="text-gray-300 animate-pulse"
+      />
+    );
+  }
 
-    if (error) {
-        return <StateMessage text="Failed to load Top Ranking Students. Please try again later." className="text-red-600" />;
-    }
+  if (error) {
+    return (
+      <StateMessage
+        text="Failed to load Top Ranking Students. Please try again later."
+        className="text-red-400"
+      />
+    );
+  }
 
   return (
-    <>
-      {data?.data && (
-        <div className="w-full max-w-6xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap:4 p-4">
-          {data.data.map((details) => (
-            <>
-              <div
-                key={details.topStudent.enrollment}
-                className="flex flex-col items-center justify-center gap-1"
-              >
-                <div className="font-rubik text-green-800">
-                  {programmeCodes[details.topStudent.prgCode]}
-                </div>
-                <Link
-                  to={`/student/${details.topStudent.enrollment}`}
-                  key={details.topStudent.enrollment}
-                  className="text-green-700 w-64 m-1 font-roboto-flex rounded-lg shadow-md border border-gray-200 hover:bg-emerald-100 hover:scale-102 hover:border-green-300 hover:cursor-pointer transition-all duration-200 flex flex-col items-center justify-between bg-green-100 px-2"
-                >
-                  <div className="flex flex-col items-center justify-center gap-2 p-4">
-                    <div className="flex items-center justify-center gap-2 text-green-800 font-semibold">
-                      <FontAwesomeIcon icon={faUser} />
-                      <div className="font-rubik text-base sm:text-lg">
-                        {details.topStudent.name}
-                      </div>
-                    </div>
-                    <div className="text-slate-900 font-semibold text-base bg-lime-100 px-2 rounded-2xl">
-                      CGPA: {details.topStudent.cgpa}
-                    </div>
-                  </div>
-                  <div
-                className="flex flex-col gap-2 p-4 border-t-2 border-green-700 text-green-700"
-              >
-                <div className="flex items-center gap-2 text-xs sm:text-sm">
-                  <FontAwesomeIcon icon={faIdCard} />
-                  <span className="font-medium">Enrollment:</span>
-                  <span className="text-muted-foreground text-xs sm:text-sm"
-                    >{details.topStudent.enrollment}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm">
-                  <FontAwesomeIcon icon={faBook} />  
-                  <span className="font-medium">Programme: </span>
-                  <span className="text-muted-foreground text-xs">{programmeCodes[details.topStudent.prgCode]}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm">
-                  <FontAwesomeIcon icon={faCalendar} />
-                  <span className="font-medium">Batch:</span>
-                  <span className="text-muted-foreground text-xs">{details.topStudent.batch}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm">
-                    <FontAwesomeIcon icon={faBuildingColumns} />
-                    <span className="font-medium">Institute Code:</span>
-                    <span className="text-muted-foreground text-xs">{details.topStudent.instCode}</span>
-                </div>
+    <section className="relative  z-10 py-16 px-4 bg-transparent">
+      {/* <div className="max-w-6xl mx-auto text-center mb-12">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white">🏆 Top Performing Students</h2>
+        <p className="text-emerald-300 mt-2">Academic excellence across all programs</p>
+      </div> */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {data?.data.map(({ topStudent }) => (
+          <Link
+            key={topStudent.enrollment}
+            to={`/student/${topStudent.enrollment}`}
+            className="group rounded-2xl bg-conic from-emerald-700/10 via-black/30 to-emerald-800/10 border border-emerald-400/20 backdrop-blur-md p-5 transition-all hover:scale-105 hover:shadow-emerald-500/30 hover:border-emerald-300 duration-300 text-white"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <div className="text-xs uppercase tracking-wide text-emerald-300 font-semibold">
+                {programmeCodes[topStudent.prgCode]}
               </div>
-                </Link>
+
+              <div className="text-lg font-bold flex items-center gap-2 text-white">
+                <FontAwesomeIcon icon={faUser} className="text-emerald-400" />
+                {topStudent.name}
               </div>
-            </>
-          ))}
-        </div>
-      )}
-    </>
+
+              <div className="bg-emerald-600/30 px-3 py-1 text-sm rounded-full text-emerald-100 font-semibold">
+                CGPA: {topStudent.cgpa}
+              </div>
+            </div>
+
+            <div className="mt-4 border-t border-emerald-400/20 pt-4 space-y-2 text-sm text-emerald-100">
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faIdCard} className="text-emerald-400" />
+                <span className="font-medium">Enrollment:</span>
+                <span className="text-white/80">{topStudent.enrollment}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faBook} className="text-emerald-400" />
+                <span className="font-medium">Programme:</span>
+                <span className="text-white/80">
+                  {programmeCodes[topStudent.prgCode]}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faCalendar} className="text-emerald-400" />
+                <span className="font-medium">Batch:</span>
+                <span className="text-white/80">{topStudent.batch}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faBuildingColumns} className="text-emerald-400" />
+                <span className="font-medium">Institute:</span>
+                <span className="text-white/80">{topStudent.instCode}</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 };
 
