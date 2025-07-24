@@ -99,7 +99,7 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                 </div>
                 <div className="w-[90%] sm:w-10/12  grid gap-2 grid-cols-3 sm:grid-cols-4 text-[0.6rem] sm:text-xs font-lexend">
                     
-                    <div className="flex flex-col   border-2 justify-center items-center p-2 rounded-xl gap-1  font-semibold ">
+                    <div className="flex flex-col   border-2 border-emerald-800 justify-center items-center p-2 rounded-xl gap-1  font-semibold ">
                         <div>
                             Marks
                         </div>
@@ -107,7 +107,7 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                             {marksheet?.totalMarks}/{marksheet?.maxMarks}
                         </div>
                     </div>
-                    <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl gap-1  font-semibold">
+                    <div className="flex flex-col border-2 border-emerald-800 justify-center items-center p-2 rounded-xl gap-1  font-semibold">
                         <div>
                             Credits
                         </div>
@@ -115,7 +115,7 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                             {marksheet?.totalCredits}/{marksheet?.maxCredits}
                         </div>
                     </div>
-                    <div className="flex flex-col border-2 justify-center items-center p-2 rounded-xl  font-semibold gap-1">
+                    <div className="flex flex-col border-2 border-emerald-800 justify-center items-center p-2 rounded-xl  font-semibold gap-1">
                         <div>
                             Percentage
                         </div>
@@ -123,7 +123,7 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                             {marksheet?.percentage?.toFixed(2)}%
                         </div>
                     </div>
-                    <div className="col-start-2 sm:col-start-4 flex flex-col border-2 justify-center items-center p-2 rounded-xl  font-semibold gap-1">
+                    <div className="col-start-2 sm:col-start-4 flex flex-col border-2 border-emerald-800 justify-center items-center p-2 rounded-xl  font-semibold gap-1">
                         <div>
                             Rank
                         </div>
