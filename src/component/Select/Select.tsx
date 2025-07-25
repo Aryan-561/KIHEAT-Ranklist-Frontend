@@ -49,7 +49,7 @@ export const SelectBatch:React.FC<SelectBatchProps> = ({options}) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[120px] sm:w-[180px] justify-between bg-green-200 text-black border border-black hover:bg-green-300 cursor-pointer font-roboto-flex "
+          className="w-[140px] sm:w-[180px] justify-between bg-green-200 text-black border border-black hover:bg-green-300 cursor-pointer font-roboto-flex "
         >
           {value
             ? options.find((option) => option.value === value)?.label

@@ -116,7 +116,7 @@ const ClassResultList:React.FC = () => {
                         key={semster.sem} 
                         value={semster.sem} 
                         onClick={() => setSem(String(semster.sem))}
-                        className={`px-4  py-2 rounded-md cursor-pointer  ${sem == semster.sem ? 'bg-green-800 border-white text-white' : 'bg-green-200 border text-black hover:bg-green-300  border-gray-500'}`}
+                        className={`px-4   py-2 rounded-md cursor-pointer  ${sem == semster.sem ? 'bg-green-800 border-white text-white' : 'bg-green-200 border text-black hover:bg-green-300  border-gray-500'}`}
                         >
                             Sem {semster.sem}
                         </button>
@@ -127,9 +127,9 @@ const ClassResultList:React.FC = () => {
             </div>
             
             <div className=" w-full sm:w-9/12  mx-auto">
-                <div className="bg-emerald-400 rounded-lg overflow-hidden py-2 border-2 border-emerald-800">
+                <div className="bg-emerald-300 rounded-lg overflow-hidden py-3 sm:px-1 lg:px-2 border-2 border-emerald-800">
                     {/* Table Header */}
-                    <div className="font-rubik text-[10px] sm:text-base grid grid-cols-10 place-items-center gap-2 p-2 sm:p-3 m-2 rounded-md sm:rounded-xl bg-emerald-800 text-white  font-medium">
+                    <div className="font-rubik text-[10px] sm:text-base grid grid-cols-10 place-items-center gap-2 sm:gap-4  p-2 px-3 sm:p-3 m-2 rounded-md sm:rounded-xl bg-emerald-800 text-white  font-medium">
                         <div className="col-span-2">Enrollment</div>
                         <div className="col-span-4">Name</div>
                         <div className="col-span-2">Marks</div>
@@ -144,16 +144,16 @@ const ClassResultList:React.FC = () => {
                        
                         return(<div
                             key={student.enrollment}
-                            className="font-lexend cursor-pointer bg-emerald-100 rounded-lg sm:rounded-xl  grid grid-cols-10 place-items-center gap-4 p-2 px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium"
+                            className="font-lexend cursor-pointer bg-emerald-100 rounded-lg sm:rounded-xl  grid grid-cols-10 place-items-center gap-2 sm:gap-4 p-2 px-2 sm:px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium"
                             onClick={()=>{setMarksheet(student); open(); }}
                         >
                             <div className="font-mono font-semibold col-span-2 ">{student.enrollment}</div>
-                            <div className=" col-span-4 ">{student.name}</div>
+                            <div className=" col-span-4 text-center">{student.name}</div>
                             <div className="col-span-2 ">{`${student.totalMarks} / ${student.maxMarks}`}</div>
                             <div className="col-span-1 ">{student?.gpa?.toFixed(3) || student.cgpa?.toFixed(3)}</div>
                             <div className="col-span-1 ">{student.rank}</div>
                         </div>)})}
-                        {/* Add more rows as needed */}
+                        
                     </div>
                 </div>
             </div>

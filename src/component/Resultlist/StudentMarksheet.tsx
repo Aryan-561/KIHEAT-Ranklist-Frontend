@@ -92,8 +92,8 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                             <span>{marksheet?.enrollment}</span>
                             <FontAwesomeIcon icon={faUpRightFromSquare} className="text-base" />
                         </Link>
-                        {sem !="overall" && <div className="font-semibold rounded-2xl bg-lime-100 p-1 px-2">
-                            {marksheet?.gpa}
+                        {sem !="overall" && <div className="font-semibold rounded-2xl bg-yellow-100 p-1 px-2">
+                            {marksheet?.gpa.toFixed(3)}
                         </div>}
                     </div>
                 </div>
@@ -176,10 +176,13 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
                             <div className="col-span-3 flex justify-center items-center gap-1 flex-wrap">
                                 <span>{`${subject?.total}(${subject?.grade})`}</span>
 
-                                {subject?.backlog && (<span className=" text-[8px]  sm:text-xs text-white px-1 mx-0.5 bg-red-500 rounded-sm ">Backlog</span>)}
+                                <div className="flex flex-col gap-1  items-center justify-center ">
+
+                                {subject?.backlog && (<span className=" text-[8px]  sm:text-xs text-white px-1 mx-0.5  rounded-sm ">Backlog</span>)}
                                 
                                 {subject?.reappear && 
                                 <span className=" text-[8px] sm:text-xs text-white px-1 mx-0.5 bg-cyan-800 rounded-sm">Reappear</span>}
+                                </div>
                             </div>
                             
                         </div>
