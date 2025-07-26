@@ -5,7 +5,6 @@ import { Trophy, ChevronRight, Sparkles, Star, Zap } from "lucide-react"
 import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react"
-import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 import TopStudentsCard from "../Card/TopStudentsCard";
 import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
@@ -62,7 +61,7 @@ const courses = [
 
 
 // Floating particles component
-export const FloatingParticles = () => {
+export const FloatingParticles = ({ bg = "bg-white/10" }:any) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([])
 
   useEffect(() => {
@@ -80,7 +79,7 @@ export const FloatingParticles = () => {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute w-2 h-2 bg-white/20 rounded-full"
+          className={`${bg} absolute w-2 h-2  rounded-full`}
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
@@ -155,7 +154,7 @@ const LandingPage: React.FC = () => {
   const y2 = useTransform(scrollY, [0, 300], [0, -100])
 
   return (
-    <div className="min-h-screen w-full rounded-xl bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 relative overflow-hidden">
+    <div className="min-h-screen w-full mt-0.5 rounded-xl bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 relative overflow-hidden">
       <DynamicBackground />
 
       {/* Hero Section */}
@@ -165,37 +164,10 @@ const LandingPage: React.FC = () => {
         transition={{ duration: 1 }}
         className="relative min-h-screen flex items-center justify-center pt-20"
       > 
-        <FloatingParticles />
 
         {/* Glassmorphism container */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="texxt-center">
-            {/* Animated logo */}
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 100 }}
-              className="flex justify-center mb-8"
-            >
-              <div className="relative">
-                <motion.div
-                  className="absolute -inset-4 bg-gradient-to-rrounded-full blur-lg opacity-60"
-                  animate={{
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "linear",
-                  }}
-                />
-                <div className="relative bg-white/10 backdrop-blur-xs cursor-pointer hover:animate-pulse bg-linear-to-br from-green-700/75 
-            via-white/5  to-green-900/85 rounded-full p-4    ">
-                  <img src={logo} className=" w-16 h-16  sm:w-24 sm:h-24 lg:h-48 lg:w-48" alt="Logo" />
-                </div>
-              </div>
-            </motion.div>
+          <div className="text-center">
 
             {/* Main heading with typewriter effect */}
             <motion.div
@@ -314,7 +286,7 @@ const LandingPage: React.FC = () => {
 
               const colors = [
                 { from: "from-blue-500", to: "to-purple-600", accent: "text-blue-300" },
-                { from: "from-emerald-500", to: "to-green-600", accent: "text-emerald-300" },
+                { from: "from-emerald-500", to: "to-green-600", accent: "text-violet-300" },
                 { from: "from-orange-500", to: "to-red-600", accent: "text-orange-300" },
               ]
               return (
@@ -328,7 +300,7 @@ const LandingPage: React.FC = () => {
                   whileHover={{ y: -20, rotateY: 5, scale: 1.02 }}
                   className="group cursor-pointer perspective-1000"
                 >
-                  <Card className="h-full bg-white/5 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-2xl overflow-hidden rounded-3xl">
+                  <Card className="h-full bg-white/5 backdrop-blur-md border  border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-2xl overflow-hidden rounded-3xl">
                     <CardContent className="p-8 relative">
                       {/* Background gradient */}
                       <div
@@ -399,6 +371,7 @@ const LandingPage: React.FC = () => {
               <Trophy className="h-12 w-12 text-white" />
             </div>
           </motion.div>
+          <FloatingParticles />
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

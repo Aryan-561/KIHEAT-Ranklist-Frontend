@@ -4,7 +4,7 @@ import type { FC } from "react";
 import Footer from "./component/Footer/Footer";
 import Navbar from "./component/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
-import { ScrollToTop } from "./component/Landingpage/LandingPage";
+import { FloatingParticles, ScrollToTop } from "./component/Landingpage/LandingPage";
 const App: FC = () => {
   // const { data, isLoading, error, refetch } = useQuery({
   //   queryKey: ["programme-result", "bca", "2023"],
@@ -14,10 +14,12 @@ const App: FC = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full box-border p-2  bg-gradient-to-br from-green-300 to-lime-200 text-white"> 
-        <Navbar/>
-        <ScrollToTop/>
-        <Outlet/>
+      <div className="min-h-screen w-full box-border p-2    bg-gradient-to-br from-green-200 to-blue-200 text-white">
+        <Navbar />
+        <ScrollToTop />
+
+        <Outlet />
+        <FloatingParticles bg={"bg-emerald-600/10"}/>
         <Footer />
       </div>
     </>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faUsers, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import logo from "../../assets/logo.png";
+import { faHouse, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Logo from '../Logo/Logo';
 
 const Navbar: React.FC = () => {
     return (
-        <nav className="bg-gradient-to-tr mb-1 from-slate-900 via-green-900 to-emerald-900 backdrop-blur-md rounded-md border-b border-green-500/10 shadow-md px-4 py-1 sm:px-8 flex justify-between items-center">
+        <nav className="bg-gradient-to-tr mb-1 py-2 from-slate-900 via-green-900 to-emerald-900 backdrop-blur-md rounded-md border-b border-green-500/10 shadow-md px-4  sm:px-8 flex justify-between items-center">
 
             {/* Logo Section */}
             <div className="flex items-center gap-2">
                 <div className=" px-1.5 rounded-full shadow-sm">
                     <Link to="/">
-                        <img src={logo} className="w-9 h-9 sm:w-14 sm:h-14" alt="Logo" />
+                        <Logo />
                     </Link>
                 </div>
                 <div className="text-white leading-tight">
