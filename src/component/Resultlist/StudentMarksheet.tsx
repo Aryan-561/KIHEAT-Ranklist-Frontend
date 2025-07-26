@@ -178,7 +178,7 @@ const StudentMarksheet: React.FC<StudentMarksheetProps> = ({isOpen, onClose, mar
 
                                 <div className="flex flex-col gap-1  items-center justify-center ">
 
-                                {subject?.backlog && (<span className=" text-[8px]  sm:text-xs text-white px-1 mx-0.5  rounded-sm ">Backlog</span>)}
+                                {subject?.backlog && (<span className=" text-[8px] bg-red-500  sm:text-xs text-white px-1 mx-0.5  rounded-sm ">Backlog</span>)}
                                 
                                 {subject?.reappear && 
                                 <span className=" text-[8px] sm:text-xs text-white px-1 mx-0.5 bg-cyan-800 rounded-sm">Reappear</span>}
