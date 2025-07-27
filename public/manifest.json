@@ -1,0 +1,55 @@
+{
+    "short_name": "KIHEAT",
+    "name": "KIHEAT Ranklist Dashboard",
+    "description": "Explore KIHEAT student ranklists, CGPA insights, and performance dashboards across GGSIPU colleges.",
+    "lang": "en-IN",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#166534",
+    "background_color": "#ecfccb",
+    "icons": [
+        {
+            "src": "/seo/logo.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/seo/logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "View Ranklist",
+            "short_name": "Ranklist",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/seo/logo.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Search Students",
+            "short_name": "Search",
+            "url": "/search",
+            "icons": [
+                {
+                    "src": "/seo/logo.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ],
+    "categories": [
+        "education",
+        "analytics",
+        "dashboard"
+    ]
+}

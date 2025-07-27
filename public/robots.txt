@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kiheatranklist.vercel.app/sitemap.xml
