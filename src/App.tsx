@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import Footer from "./component/Footer/Footer";
 import Navbar from "./component/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
@@ -7,8 +7,14 @@ import {
   ScrollToTop,
 } from "./component/Landingpage/LandingPage";
 import { Helmet } from "react-helmet";
+import { checkHealth } from "./utils/healthCheck";
 
 const App: FC = () => {
+
+  useEffect(()=>{
+    checkHealth()
+  },[])
+
   return (
     <>
       <div className="min-h-screen w-full box-border p-2 bg-gradient-to-br from-green-200 to-blue-200 text-white">
