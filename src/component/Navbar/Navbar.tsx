@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
             <div className="flex items-center gap-3 sm:gap-4 text-white font-medium text-sm sm:text-base">
                 <NavLink
                     to="/"
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-white/10 transition-all border border-white/10"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-white/10 transition-all border border-white/10 hover:translate-y-[-4px]"
                 >
                     <FontAwesomeIcon icon={faHouse} />
                     <span className="hidden sm:block">Home</span>
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
 
                 <NavLink
                     to="/search"
-                    className="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-xl shadow-sm transition-all"
+                    className="border border-white/10 hover:bg-white/10 px-3 py-1.5 rounded-xl shadow-sm transition-all hover:translate-y-[-4px]"
                     aria-label="Search"
                 >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
