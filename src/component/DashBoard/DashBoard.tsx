@@ -247,14 +247,14 @@ export default function DashBoard() {
 
     if (isLoading) {
         return (
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full min-h-screen flex items-center justify-center">
                 <span className="loader"></span>
             </div>
         );
     }
 
     if (isError || !enrollmentData?.data) {
-        return <div className="w-full flex items-center justify-center">
+        return <div className="w-full min-h-screen flex items-center justify-center">
             <span className="px-2.5 text-red-700 border-black/30 py-1.5  border rounded-2xl">{error?.message}</span>
         </div>
     }
