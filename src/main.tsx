@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import BatchPage from "./pages/Batch/BatchPage.tsx";
-import Search from "./component/Search/Search.tsx";
-import DashBoard from "./component/DashBoard/DashBoard.tsx";
 import _404_page from "./component/404/404.tsx";
 import AboutPage from "./pages/Home/About.tsx";
 import ResultPage from "./pages/ResultPage/ResultPage.tsx";
+import DashBoard from "./pages/Dashboard/DashBoard,.tsx";
+import Search from "./pages/Search/Search.tsx";
 
 const queryClient = new QueryClient();
 
