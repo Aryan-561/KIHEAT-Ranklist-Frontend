@@ -21,7 +21,6 @@ const Card: React.FC<CardProps> = ({ fields, title }) => {
       <ul className="flex flex-wrap gap-3 w-full">
         {fields.map((item, index) => {
           const key = Object.keys(item)[0];
-          // console.log("key",key);
 
           return (
             <Link to={`/${key.toLowerCase()}`}

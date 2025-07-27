@@ -1,5 +1,4 @@
 const IS_PRODUCTION = import.meta.env.MODE === "production";
-console.log(import.meta.env);
 
 const ENV = {
     IS_PRODUCTION,

@@ -12,7 +12,6 @@ const Batch: React.FC = () => {
     const findCourseName = (course: string) => {
 
         const el = courses.find((c) => Object.keys(c)[0].toLowerCase() === course.toLowerCase())
-        console.log("el", el);
         return el ? Object.values(el) : "NO course found with this Name"
 
     }
@@ -35,7 +34,6 @@ const Batch: React.FC = () => {
     }
 
     if (error) {
-        console.log("error", error)
         return <CenteredMessage text="Failed to load batches. Please try again later." className="text-red-600" />;
     }
 

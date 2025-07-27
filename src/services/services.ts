@@ -83,7 +83,6 @@ class Service {
   async getProgrammeResult(programme: string, batch: string): Promise<Programme> {
     try {
       const res = await axiosInstance.get<Programme>(`/programme/${programme}/${batch}`)
-      console.log(res);
 
       return res.data
 
