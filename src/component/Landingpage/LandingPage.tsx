@@ -162,12 +162,12 @@ const LandingPage: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="relative min-h-screen flex items-center justify-center pt-20"
+        className="relative sm:min-h-[80vh] flex items-center justify-center pt-8"
       > 
 
         {/* Glassmorphism container */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center font-gabarito">
 
             {/* Main heading with typewriter effect */}
             <motion.div
@@ -175,7 +175,7 @@ const LandingPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
                 Welcome to{" "}
                 <motion.span
                   className="bg-gradient-to-r cursor-pointer from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"
@@ -198,7 +198,7 @@ const LandingPage: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-3xl sm:text-4xl  text-center font-semibold text-emerald-300 mb-8"
+                className="text-2xl sm:text-4xl  text-center font-semibold text-emerald-300 mb-8"
               >
                 Academic Excellence Hub
               </motion.h2>
@@ -208,9 +208,9 @@ const LandingPage: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 0.8 }}
-              className="text-xl sm:text-2xl text-center text-green-100 mb-12 max-w-4xl mx-auto leading-relaxed"
+              className="  sm:text-2xl text-center text-green-100 mb-12 max-w-4xl mx-auto leading-relaxed"
             >
-              Discover rankings, celebrate achievements, and track academic performance across BCA, BBA, and BCOM
+              Discover rankings, celebrate achievements, and track academic performance across BCA, BBA, and B.COM
               programmes
             </motion.p>
 
@@ -225,8 +225,8 @@ const LandingPage: React.FC = () => {
                 <Link to="/search">
                   <Button
                     className="bg-gradient-to-r from-emerald-500 to-green-600 
-        hover:from-emerald-600 hover:to-green-700 text-white text-lg 
-        px-10 py-2 rounded-2xl font-semibold shadow-2xl border-0 
+        hover:from-emerald-600 hover:to-green-700 text-white sm:text-lg 
+        px-6 sm:px-10 py-2 rounded-2xl font-semibold shadow-2xl border-0 
         group relative overflow-hidden flex items-center justify-center"
                   >
                     <span className="relative z-10 flex items-center justify-center w-full">
@@ -252,7 +252,7 @@ const LandingPage: React.FC = () => {
       </motion.section>
 
       {/* Courses Section */}
-      <motion.section style={{ y: y2 }} className="relative py-32 bg-gradient-to-b from-transparent to-black/20">
+      <motion.section style={{ y: y2 }} className="font-lexend relative py-32 bg-gradient-to-b from-transparent to-black/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -270,10 +270,10 @@ const LandingPage: React.FC = () => {
             </motion.div>
 
             <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-              view {""}
+              View {""}
               <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">course-wise rankings</span>
             </h2>
-            <p className="text-xl text-green-100 max-w-3xl mx-auto">
+            <p className="sm:text-xl text-green-100 max-w-3xl mx-auto">
               Select your program to explore  performance rankings, academic,  analytics and many more...
 
             </p>
@@ -318,18 +318,18 @@ const LandingPage: React.FC = () => {
 
                       <div className="relative z-10">
                         <motion.div
-                          className={`w-20 h-20 bg-gradient-to-r ${colors[index].from} ${colors[index].to} rounded-2xl flex items-center justify-center shadow-2xl mb-8 mx-auto`}
+                          className={`w-20 h-12 sm:w-20 sm:h-20 bg-gradient-to-r ${colors[index].from} ${colors[index].to} rounded-2xl flex items-center justify-center shadow-2xl mb-8 mx-auto`}
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <span className="text-white font-bold text-2xl">{courseCode}</span>
+                          <span className="text-white font-bold text-xl sm:text-2xl">{courseCode}</span>
                         </motion.div>
 
-                        <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-300 transition-colors text-center">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-emerald-300 transition-colors text-center">
                           {courseName}
                         </h3>
 
-                        <p className="text-green-100 mb-8 text-center leading-relaxed">
+                        <p className="text-sm sm:text-base text-green-100 mb-8 text-center leading-relaxed">
                           Explore comprehensive rankings, performance analytics, and student achievements
                         </p>
 
@@ -359,7 +359,7 @@ const LandingPage: React.FC = () => {
         viewport={{ once: true }}
         className="relative py-32 bg-gradient-to-t from-black/40 to-transparent"
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="font-lexend  sm:w-[80%]  mx-auto px-4 sm:px-6 lg:px-8 text-center ">
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -367,8 +367,8 @@ const LandingPage: React.FC = () => {
             viewport={{ once: true }}
             className="mb-8"
           >
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-2xl">
-              <Trophy className="h-12 w-12 text-white" />
+            <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-2xl">
+              <Trophy className="h-8 w-8 sm:h-12 sm:w-12 text-white" />
             </div>
           </motion.div>
           <FloatingParticles />
@@ -378,9 +378,9 @@ const LandingPage: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-bold text-white mb-6"
+            className="text-3xl sm:text-5xl font-bold text-white mb-6"
           >
-            Ready to Explore the Ranklists?
+             Top Performing Students
           </motion.h2>
 
           <motion.p
@@ -388,9 +388,9 @@ const LandingPage: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
-            className=" text-green-100  text-md mb-12 max-w-2xl mx-auto"
+            className=" text-green-100  sm:text-lg mb-12 max-w-2xl mx-auto"
           >
-            Dive into detailed student result analytics and see who leads each course.
+           Explore the Top Students from each programme (onward 2022 batch)
 
           </motion.p>
 
@@ -403,11 +403,11 @@ const LandingPage: React.FC = () => {
           >
             <Button
               onClick={() => setOpen((prev) => !prev)}
-              className="bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 hover:from-emerald-600 hover:via-green-600 hover:to-emerald-700 text-white text-xl px-12 rounded-2xl font-semibold shadow-2xl border-0 relative overflow-hidden group"
+              className="bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 hover:from-emerald-600 hover:via-green-600 hover:to-emerald-700 text-white sm:text-xl sm:px-12 rounded-2xl font-semibold shadow-2xl border-0 relative overflow-hidden group"
             >
               <span className="relative z-10 flex justify-evenly items-center">
                 <Sparkles className="mr-2 h-6 w-6 group-hover:rotate-180 transition-transform duration-500" />
-                Start Exploring
+                Exploring
                 {open ? (
                   <FaAngleDoubleUp className="ml-3.5 transition-all duration-300" />
                 ) : (
