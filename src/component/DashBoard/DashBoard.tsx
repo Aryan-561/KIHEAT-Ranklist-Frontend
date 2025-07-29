@@ -8,6 +8,7 @@ import { Achievments } from "./Header";
 export type Student = StudentByEnrollmentResponse['data'];
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import StateMessage from "../StateMessage/StateMessage";
 
 interface Subject {
     subjectname: string;
@@ -18,6 +19,7 @@ interface Subject {
     credit: number;
     grade: string;
     backlog?: boolean;
+    reappear?: boolean;
 }
 
 interface SemesterData {
@@ -81,15 +83,14 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                 </h2>
 
                 {/* Toggle Buttons */}
-                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                <div className="flex flex-wrap justify-center gap-2 mb-4 bg-green-200 p-4 rounded-2xl text-[0.7rem] sm:text-base font-lexend">
                     {/* Overall Button */}
                     <button
                         key="overall"
-                        className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200
+                        className={`px-4 py-1.5 cursor-pointer rounded-full  font-semibold transition-all duration-200
                         border-2 shadow-sm 
                         ${sem === "overall"
-                                ? "bg-green-200 text-green-900 border-green-400"
-                                : "bg-white text-green-800 border-green-500 hover:bg-green-50"
+                                ? 'bg-emerald-800 text-white border-none' : 'bg-emerald-200 border text-black hover:bg-green-300  border-gray-500'
                             }`}
                         onClick={() => setSem("overall")}
                     >
@@ -102,11 +103,10 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                         return (
                             <button
                                 key={semester.semesterNum}
-                                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200
+                                className={`px-4 py-1.5 cursor-pointer rounded-full  font-semibold transition-all duration-200
                                 border-2 shadow-sm
                                 ${selected
-                                        ? "bg-green-300/90 text-green-900 border-green-600"
-                                        : "bg-white text-green-800 border-green-500 hover:bg-green-50"
+                                        ? 'bg-emerald-800 text-white border-none' : 'bg-emerald-200 border text-black hover:bg-green-300  border-gray-500'
                                     }`}
                                 onClick={() => setSem(String(semester.semesterNum))}
                             >
@@ -120,7 +120,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
 
                 {/* Summary Section */}
                 <div className="w-full flex flex-col justify-center items-center bg-emerald-200 py-4 rounded-2xl  border-2">
-                    <div className="w-[90%] sm:w-10/12 grid gap-2  grid-cols-3 sm:grid-cols-4 text-xs sm:text-sm font-lexend">
+                    <div className="w-[90%] sm:w-10/12 grid gap-2  grid-cols-3 sm:grid-cols-4 text-[.6rem] sm:text-sm font-lexend">
                         <div className="flex flex-col  border-black  border-2 justify-center items-center p-2 rounded-xl font-semibold">
                             <div>Marks</div>
                             <div>{
@@ -146,7 +146,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                                 ? marksheet?.percentage?.toFixed(2)
                                 : currentSemData?.percentage?.toFixed(2)}%</div>
                         </div>
-                        <div className="flex flex-col border-2  border-black   justify-center items-center p-2 rounded-xl font-semibold">
+                        <div className="col-start-2 sm:col-start-4 flex flex-col border-2  border-black   justify-center items-center p-2 rounded-xl font-semibold">
                             <div>{sem === "overall" ? "CGPA" : "SGPA"}</div>
                             <div>
                                 {sem === "overall"
@@ -161,7 +161,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                 <motion.div
                     layout
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="w-full min-h-[33rem] flex flex-col gap-2 bg-emerald-200 p-3 rounded-2xl border-2"
+                    className="w-full min-h-20 sm:min-h-[24rem] flex flex-col gap-2 bg-emerald-200 p-3 pb-5 rounded-2xl border-2"
                 >
                     {sem === "overall" ? (
                         <>
@@ -177,6 +177,7 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                                 <motion.div
                                     layout
                                     key={semester.semesterNum}
+                                    onClick={() => setSem(String(semester.semesterNum))}
                                     className="font-lexend font-semibold cursor-pointer bg-emerald-100 rounded-xl grid grid-cols-4 gap-6 p-2 px-3 text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm border-2 text-center border-green-800"
                                 >
                                     <div>{`Sem ${semester.semesterNum}`}</div>
@@ -190,9 +191,9 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                         <>
                             {/* Semester Table */}
                             <div className="font-rubik text-[10px] sm:text-base grid grid-cols-10 gap-x-2  sm:gap-6 my-2 p-3 rounded-xl bg-green-800 text-white font-medium">
-                                <div className="col-span-4">Subject (credits)</div>
+                                <div className="col-span-4 sm:col-span-5">Subject (credits)</div>
                                 <div className="text-center col-span-2">Course Code</div>
-                                <div className="text-center col-span-2">Int.|Ext.</div>
+                                <div className="text-center col-span-2  sm:col-span-1">Int.|Ext.</div>
                                 <div className="text-center col-span-2">Marks</div>
                             </div>
 
@@ -202,20 +203,25 @@ const MarkSheet: React.FC<{ marksheet: Marksheet }> = ({ marksheet }) => {
                                     key={subject.subjectCode}
                                     className="font-lexend cursor-pointer bg-emerald-100 rounded-xl grid grid-cols-10 gap-x-2 sm:gap-6 p-2 px-3 text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium border-2 border-green-800"
                                 >
-                                    <div className="col-span-4 ">
+                                    <div className="col-span-4 sm:col-span-5 ">
                                         {subject.subjectname} ({subject.credit})
                                     </div>
                                     <div className="text-center col-span-2">{subject.subjectCode}</div>
-                                    <div className="text-center col-span-2">
+                                    <div className="text-center col-span-2 sm:col-span-1">
                                         {subject.internal}|{subject.external}
                                     </div>
                                     <div className="col-span-2 flex justify-center items-center gap-1 flex-wrap">
                                         <span>{`${subject.total} (${subject.grade})`}</span>
+                                        <div className="flex flex-col gap-1  items-center justify-center">
+
                                         {subject.backlog && (
                                             <span className="text-[8px] sm:text-xs text-white px-1 bg-red-500 rounded-sm">
                                                 Backlog
                                             </span>
                                         )}
+                                        {subject?.reappear && 
+                                            <span className=" text-[8px] sm:text-xs text-white px-1 mx-0.5 bg-cyan-800 rounded-sm">Reappear</span>}
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
@@ -247,16 +253,12 @@ export default function DashBoard() {
 
     if (isLoading) {
         return (
-            <div className="w-full min-h-screen flex items-center justify-center">
-                <span className="loader"></span>
-            </div>
+            <StateMessage text="Fetching Data" className="text-green-800" />
         );
     }
 
     if (isError || !enrollmentData?.data) {
-        return <div className="w-full min-h-screen flex items-center justify-center">
-            <span className="px-2.5 text-red-700 border-black/30 py-1.5  border rounded-2xl">{error?.message}</span>
-        </div>
+        return <StateMessage text={`${error?.message}`} className="text-green-800" />
     }
 
     const student = enrollmentData.data;
@@ -288,7 +290,8 @@ export default function DashBoard() {
                         total: sub.total || 0,
                         credit: sub.credits || 0,
                         grade: sub.grade,
-                        backlog: sub.backlog
+                        backlog: sub.backlog,
+                        reappear: sub.reappear
                     }))
                 }
             })
@@ -311,7 +314,7 @@ export default function DashBoard() {
                         <span
                             key={item.key}
                             onClick={() => setActiveTab(item.key as typeof activeTab)}
-                            className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center rubik rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-800/90 font-semibold" : "hover:bg-black/5 text-black"
+                            className={`w-full whitespace-nowrap text-sm sm:text-base py-1 text-center font-gabarito rounded-md mx-0.5 ${activeTab === item.key ? "bg-green-800/90 font-semibold" : "hover:bg-black/5 text-black"
                                 }`}
                         >
                             {item.label}
