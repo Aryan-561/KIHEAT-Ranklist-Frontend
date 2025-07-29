@@ -42,7 +42,7 @@ export interface Subject{
     internal: number;
     external: number;
     total: number;
-    reapper: boolean;
+    reappear: boolean;
     backlog: boolean;
     grade: string;
 }
