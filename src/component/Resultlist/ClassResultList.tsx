@@ -110,13 +110,13 @@ const ClassResultList:React.FC = () => {
                     <label htmlFor="semester" className="sm:text-lg font-medium text-gray-700">Select Semester:</label>
                     <div className="font-lexend flex flex-wrap gap-2 justify-center text-xs sm:text-base">
 
-                    <button  onClick={() => setSem("overall")} value={"overall"} className={`px-2  sm:px-4 py-2 rounded-md cursor-pointer ${sem === "overall" ? 'bg-green-800 text-white' : 'bg-green-200 border text-black  hover:bg-green-300 border-gray-500'}`}>overall</button>
+                    <button  onClick={() => setSem("overall")} value={"overall"} className={`px-2  sm:px-4 py-2 rounded-md cursor-pointer ${sem === "overall" ? 'bg-emerald-800 text-white' : 'bg-emerald-200 border text-black  hover:bg-emerald-300 border-gray-500'}`}>overall</button>
                     {data?.data[0].semesters.map((semster:Semester)=>(
                         <button 
                         key={semster.sem} 
                         value={semster.sem} 
                         onClick={() => setSem(String(semster.sem))}
-                        className={`px-4   py-2 rounded-md cursor-pointer  ${sem == semster.sem ? 'bg-green-800 border-white text-white' : 'bg-green-200 border text-black hover:bg-green-300  border-gray-500'}`}
+                        className={`px-4   py-2 rounded-md cursor-pointer  ${sem == semster.sem ? 'bg-emerald-800 border-white text-white' : 'bg-emerald-200 border text-black hover:bg-emerald-300  border-gray-500'}`}
                         >
                             Sem {semster.sem}
                         </button>
@@ -138,16 +138,16 @@ const ClassResultList:React.FC = () => {
                     </div>
 
                     {/* Table Rows */}
-                    <div className="divide-y-2 bg-none divide-gray-600 flex flex-col gap-1 p-2 px-3">
+                    <div className=" bg-none  flex flex-col gap-1 p-2 px-3">
 
                        {rankedData?.map((student:any)=>{ 
                        
                         return(<div
                             key={student.enrollment}
-                            className="font-lexend cursor-pointer bg-emerald-100 rounded-lg sm:rounded-xl  grid grid-cols-10 place-items-center gap-2 sm:gap-4 p-2 px-2 sm:px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium"
+                            className="font-lexend cursor-pointer bg-emerald-100 rounded-lg sm:rounded-xl  grid grid-cols-10 place-items-center gap-2 sm:gap-4 p-2 px-2 sm:px-3  text-green-800 hover:bg-green-200 hover:scale-102 text-[8px] sm:text-sm font-medium border-b border-gray-600 "
                             onClick={()=>{setMarksheet(student); open(); }}
                         >
-                            <div className="font-mono font-semibold col-span-2 ">{student.enrollment}</div>
+                            <div className="font-mono font-bold sm:font-semibold col-span-2 ">{student.enrollment}</div>
                             <div className=" col-span-4 text-center">{student.name}</div>
                             <div className="col-span-2 ">{`${student.totalMarks} / ${student.maxMarks}`}</div>
                             <div className="col-span-1 ">{student?.gpa?.toFixed(3) || student.cgpa?.toFixed(3)}</div>
