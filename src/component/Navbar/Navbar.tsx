@@ -6,7 +6,7 @@ import Logo from '../Logo/Logo';
 
 const Navbar: React.FC = () => {
     return (
-        <nav className="bg-gradient-to-tr mb-1 py-2 from-slate-900 via-green-900 to-emerald-900 backdrop-blur-md rounded-md border-b border-green-500/10 shadow-md px-4  sm:px-8 flex justify-between items-center">
+        <nav className="bg-gradient-to-tr  mb-3 py-2 from-slate-900 via-green-900 to-emerald-900 backdrop-blur-md rounded-md border-b border-green-500/10 shadow-md px-4  sm:px-8 flex justify-between items-center">
 
             {/* Logo Section */}
             <div className="flex items-center gap-2">
@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex items-center gap-3 sm:gap-4 text-white font-medium text-sm sm:text-base">
+            <div className="flex items-center gap-2 sm:gap-4 text-white font-medium text-sm sm:text-base">
                 <NavLink
                     to="/"
                     className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-white/10 transition-all border border-white/10 hover:translate-y-[-4px]"
@@ -41,10 +41,10 @@ const Navbar: React.FC = () => {
 
                 <NavLink
                     to="/search"
-                    className="border border-white/10 hover:bg-white/10 px-3 py-1.5 rounded-xl shadow-sm transition-all hover:translate-y-[-4px]"
+                    className="border border-white/10 hover:bg-white/10 px-3 py-1 sm:py-1.5 rounded-xl shadow-sm transition-all hover:translate-y-[-4px]"
                     aria-label="Search"
                 >
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <FontAwesomeIcon className='text-xs sm:text-base'  icon={faMagnifyingGlass} />
                 </NavLink>
             </div>
         </nav>
