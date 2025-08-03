@@ -18,7 +18,8 @@ This is the frontend for **KIHEAT Ranklist**, a web application that allows stud
   ###  Frontend
 - React.ts 
 - React Router  
-- Axios  
+- Axios
+- Tankstack/React-query
 - Tailwind CSS , Shadcn
 - React Hooks  
 - Vite
