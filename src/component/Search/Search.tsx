@@ -89,7 +89,7 @@ function Search() {
                         type="button"
                         disabled={isEnrollment}
                         onClick={() => setShowDropdown(!showDropdown)}
-                        className={`w-full flex justify-between items-center px-4 py-2 text-xs sm:text-lg font-semibold text-white rounded-lg text-center cursor-pointer ${isEnrollment ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-700 hover:bg-green-800'
+                        className={`w-full flex justify-between items-center px-4 py-2 text-xs sm:text-lg font-semibold text-white rounded-lg text-center cursor-pointer ${isEnrollment ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-800 hover:bg-green-700'
                             }`}
                     >
                         {program}  {!showDropdown ?
@@ -117,7 +117,7 @@ function Search() {
                 
 
                 <div className=' flex gap-2 w-full sm:w-[60%] '>           
-                <div className=" flex-grow flex items-center  gap-2 border-2 border-green-600 rounded-lg px-2 sm:px-4 py-1 bg-green-50  focus-within:ring-2 focus-within:ring-green-400">
+                <div className=" flex-grow flex items-center  gap-2 border-2 border-green-600 rounded-lg px-2 sm:px-4 py-1 bg-green-50  focus-within:ring-1 focus-within:ring-green-200">
                     <label htmlFor="searchbar">
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="text-green-700 cursor-pointer" />
                     </label>
@@ -134,7 +134,7 @@ function Search() {
 
                 <button
                     onClick={handleSearch}
-                    className="px-2 sm:px-5 sm:py-2 bg-green-700 hover:bg-green-800 text-white text-xs sm:text-lg font-semibold rounded-lg transition cursor-pointer"
+                    className="px-2 sm:px-5 sm:py-2 bg-green-800 hover:bg-green-700 text-white text-xs sm:text-lg font-semibold rounded-lg transition cursor-pointer"
                 >
                     Search
                 </button>
@@ -161,7 +161,7 @@ function Search() {
 
             {(isSuccessResponse(enrollmentData) || isSuccessResponse(nameData)) && (
                 <div className="w-full max-w-3xl  border border-green-300 shadow-2xl rounded-2xl p-3 sm:p-6 mt-4">
-                    <h2 className="text-2xl font-semibold font-gabarito text-green-700 mb-4 text-center">Search Results</h2>
+                    <h2 className="text-2xl font-semibold font-gabarito text-green-800 mb-4 text-center">Search Results</h2>
 
 
                     {isSuccessResponse<StudentByEnrollmentResponse>(enrollmentData) && enrollmentData.data && (

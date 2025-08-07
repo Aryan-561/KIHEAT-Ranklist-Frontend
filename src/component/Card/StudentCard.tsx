@@ -39,7 +39,7 @@ const StudentCard: React.FC<{ student: Student }> = ({ student }) => {
                             <HiOutlineUser  className="text-green-800 text-2xl sm:text-4xl" />
                         </div>
                         <div>
-                            <h2 className="text-lg sm:text-2xl font-bold text-green-800">{student.name}</h2>
+                            <h2 className="text-lg text-center sm:text-2xl font-bold text-green-800">{student.name}</h2>
                             <div className="flex flex-col gap-1 mt-1 text-sm text-emerald-800 font-lexend">
                                 <span className="flex items-center justify-center sm:justify-start text-base gap-1"><FaIdCard/>{student.enrollment}</span>
                                 {/* <span className="flex items-center gap-1">
@@ -71,11 +71,16 @@ const StudentCard: React.FC<{ student: Student }> = ({ student }) => {
                     </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t-2 border-green-700  flex justify-center sm:justify-start items-center gap-4 text-xs sm:text-sm text-gray-700  font-lexend">
-                    {/* <span className="bg-gray-100 rounded-full px-3 py-1">Scheme: {student.schemeID}</span> */}
-                    <span className="bg-green-200 flex items-center gap-1 rounded-full px-3 py-1"><FaGraduationCap />
+                <div className="my-4 sm:mt-4 pt-4  border-t-2 border-green-700   flex  flex-col justify-center sm:flex-row sm:justify-between items-center gap-4 text-xs sm:text-sm text-gray-700  font-lexend">
+                    <div className="flex justify-center sm:justify-start items-center gap-4">
+                   
+                    <span className="bg-emerald-200 border-1 border-green-800 flex items-center gap-1 rounded-full px-3 py-1"><FaGraduationCap />
                                     {getShortProgramme(student.programme)}</span>
-                    <span className="bg-green-200 flex items-center gap-1 rounded-full px-3 py-1"><FaCalendarAlt /> Batch {student.batch}</span>
+                    <span className="bg-emerald-200 border-1 border-green-800 flex items-center gap-1 rounded-full px-3 py-1"><FaCalendarAlt /> Batch {student.batch}</span>
+                    </div>
+                    <Link to={`/student/${student.enrollment}`} className="bg-green-700 text-white py-1 px-2 rounded-2xl hover:scale-95" >
+                            Go to Dashboard
+                    </Link>
                 </div>
             </div>
         </Link>
