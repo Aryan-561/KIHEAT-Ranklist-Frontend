@@ -8,16 +8,24 @@ import {
 } from "./component/Landingpage/LandingPage";
 import { Helmet } from "react-helmet";
 import { checkHealth } from "./utils/healthCheck";
+import { Toaster } from "./component/ui/sonner";
+import { showMaintenanceToast } from "./utils/maintenanceToast";
 
 const App: FC = () => {
 
-  useEffect(()=>{
-    checkHealth()
-  },[])
+  useEffect(() => {
+    checkHealth();
+    showMaintenanceToast();
+  }, []);
 
   return (
     <>
-      <div className="min-h-screen w-full box-border p-2 bg-gradient-to-br from-green-200 to-blue-200 text-white">
+      {/* Site Maintenance Notice */}
+      <div className="w-full bg-red-700  text-center py-1 px-2 font-bold z-50 fixed top-0 left-0 shadow-lg">
+        We’ve stopped maintaining this Software. Due to GGSIPU policy changes (2026), results are now released only via the official portal.
+      </div>
+      <Toaster />
+      <div className="min-h-screen w-full box-border p-2 bg-gradient-to-br from-green-200 to-blue-200 text-white pt-16">
         <Helmet>
           {/* Basic SEO */}
           <title>KIHEAT Ranklist</title>
